@@ -103,13 +103,15 @@
                         HorizontalAlignment="Left"
                         VerticalAlignment="Stretch" />
                     <AppBarButton
+                        x:Name="BtnSaveAs"
+                        x:Uid="BtnSaveAs"                        
                         Grid.Column="4" 
                         Grid.RowSpan="2"
                         Icon="SaveLocal"
-                        Label="Save"
+                        Label="SaveAs"
                         HorizontalAlignment="Right"
                         VerticalAlignment="Stretch"
-                        Click="BtnSaveTo_Click"/>
+                        Click="BtnSaveAs_Click"/>
                 </Grid>
             </AppBar.Content>
         </AppBar>
@@ -144,8 +146,8 @@
                         Text="Ready" />
                 </Grid>
             </CommandBar.Content>
-            <AppBarButton Icon="Cancel" Label="AppBarButton" />
-            <AppBarButton Icon="Accept" Label="AppBarButton" />
+            <AppBarButton x:Name="BtnCancel" x:Uid="BtnCancel" Icon="Cancel" Label="Cancel" Click="BtnCancel_Click"  />
+            <AppBarButton x:Name="BtnOK" x:Uid="BtnOK" Icon="Accept" Label="OK" />
         </CommandBar>
     </Page.BottomAppBar>
 

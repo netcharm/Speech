@@ -126,6 +126,22 @@
           <source>Finished</source>
           <target state="translated">完成</target>
         </trans-unit>
+        <trans-unit id="Canceled" translate="yes" xml:space="preserve">
+          <source>Canceled</source>
+          <target state="translated">キャンセル済み</target>
+        </trans-unit>
+        <trans-unit id="BtnCancel.Label" translate="yes" xml:space="preserve">
+          <source>Cancel</source>
+          <target state="translated">キャンセル</target>
+        </trans-unit>
+        <trans-unit id="BtnOK.Label" translate="yes" xml:space="preserve">
+          <source>OK</source>
+          <target state="translated">確認</target>
+        </trans-unit>
+        <trans-unit id="BtnSaveAs.Label" translate="yes" xml:space="preserve">
+          <source>Save As...</source>
+          <target state="translated">新規保管...</target>
+        </trans-unit>
       </group>
     </body>
   </file>

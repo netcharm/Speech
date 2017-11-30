@@ -292,6 +292,35 @@ namespace SpeechIt.Views
             });
         }
 
+        /// <summary>
+        /// Stream to Byte
+        /// </summary>
+        /// <param name="streamin"></param>
+        /// <returns></returns>
+        private byte[] ReadStream(SpeechSynthesisStream streamin)
+        {
+            return (ReadStream(streamin.AsStream()));
+        }
+
+        /// <summary>
+        /// Stream to Byte
+        /// </summary>
+        /// <param name="streamin"></param>
+        /// <returns></returns>
+        private byte[] ReadStream(Stream streamin)
+        {
+            byte[] buffer = new byte[16 * 1024];
+            using (MemoryStream ms = new MemoryStream())
+            {
+                int read;
+                while ((read = streamin.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    ms.Write(buffer, 0, read);
+                }
+                return ms.ToArray();
+            }
+        }
+
         public MainPage()
         {
             this.InitializeComponent();
@@ -376,29 +405,27 @@ namespace SpeechIt.Views
 
         private async void BtnSpeak_Click(object sender, RoutedEventArgs e)
         {
+            // Generate the audio stream from plain text.
+            if (edContent.Text.Length <= 0) return;
+            string contents = string.Empty;
+            if (edContent.SelectionLength > 0) contents = edContent.SelectedText;
+            else if (edContent.SelectionStart >= edContent.Text.Length) contents = edContent.Text;
+            else contents = edContent.Text.Substring(edContent.SelectionStart);
+
             if (synth == null) synth = new SpeechSynthesizer();
-            //using (SpeechSynthesizer synth = new SpeechSynthesizer())
-            {
-                var voice = SpeechSynthesizer.AllVoices.Where(o => o.DisplayName == (string)cbVoice.SelectedItem);
-                synth.Voice = voice.First();
-                synth.Options.AudioPitch = sliderPitch.Value;
-                synth.Options.AudioVolume = sliderVolume.Value / 100.0;
-                synth.Options.SpeakingRate = sliderSpeed.Value;
-                //var options = new SpeechSynthesizerOptions();
+            var voice = SpeechSynthesizer.AllVoices.Where(o => o.DisplayName == (string)cbVoice.SelectedItem);
+            synth.Voice = voice.First();
+            synth.Options.AudioPitch = sliderPitch.Value;
+            synth.Options.AudioVolume = sliderVolume.Value / 100.0;
+            synth.Options.SpeakingRate = sliderSpeed.Value;
+            //var options = new SpeechSynthesizerOptions();
 
-                // Generate the audio stream from plain text.
-                string contents = string.Empty;
-                if (edContent.SelectionLength > 0) contents = edContent.SelectedText;
-                else if (edContent.SelectionStart >= edContent.Text.Length) contents = edContent.Text;
-                else contents = edContent.Text.Substring(edContent.SelectionStart);
-
-                // Send the stream to the media object.
-                media.Stop();
-                media.AutoPlay = true;
-                SpeechSynthesisStream stream = await synth.SynthesizeTextToStreamAsync(contents);
-                media.SetSource(stream, stream.ContentType);
-                media.Play();
-            }
+            // Send the stream to the media object.
+            media.Stop();
+            media.AutoPlay = true;
+            SpeechSynthesisStream stream = await synth.SynthesizeTextToStreamAsync(contents);
+            media.SetSource(stream, stream.ContentType);
+            media.Play();
         }
 
         private async void BtnListen_Click(object sender, RoutedEventArgs e)
@@ -515,22 +542,22 @@ namespace SpeechIt.Views
             btnSpeak.IsChecked = false;
         }
 
-        private async void BtnSaveTo_Click(object sender, RoutedEventArgs e)
+        private async void BtnSaveAs_Click(object sender, RoutedEventArgs e)
         {
-            if (synth == null) synth = new SpeechSynthesizer();
+            // Generate the audio stream from plain text.
+            if (edContent.Text.Length <= 0) return;
+            string contents = string.Empty;
+            if (edContent.SelectionLength > 0) contents = edContent.SelectedText;
+            else if (edContent.SelectionStart >= edContent.Text.Length) contents = edContent.Text;
+            else contents = edContent.Text.Substring(edContent.SelectionStart);
 
+            if (synth == null) synth = new SpeechSynthesizer();
             var voice = SpeechSynthesizer.AllVoices.Where(o => o.DisplayName == (string)cbVoice.SelectedItem);
             synth.Voice = voice.First();
             synth.Options.AudioPitch = sliderPitch.Value;
             synth.Options.AudioVolume = sliderVolume.Value / 100.0;
             synth.Options.SpeakingRate = sliderSpeed.Value;
             //var options = new SpeechSynthesizerOptions();
-
-            // Generate the audio stream from plain text.
-            string contents = string.Empty;
-            if (edContent.SelectionLength > 0) contents = edContent.SelectedText;
-            else if (edContent.SelectionStart >= edContent.Text.Length) contents = edContent.Text;
-            else contents = edContent.Text.Substring(edContent.SelectionStart);
 
             trans = new MediaTranscoder()
             {
@@ -554,17 +581,24 @@ namespace SpeechIt.Views
             {
                 SpeechSynthesisStream stream = await synth.SynthesizeTextToStreamAsync(contents);
 
-                MediaEncodingProfile profile_wav = MediaEncodingProfile.CreateWav(AudioEncodingQuality.Medium);
-                MediaEncodingProfile profile_mp3 = MediaEncodingProfile.CreateMp3(AudioEncodingQuality.Medium);
-                MediaEncodingProfile profile_aac = MediaEncodingProfile.CreateM4a(AudioEncodingQuality.Medium);
-                MediaEncodingProfile profile_alac = MediaEncodingProfile.CreateAlac(AudioEncodingQuality.Medium);
-                MediaEncodingProfile profile_flac = MediaEncodingProfile.CreateFlac(AudioEncodingQuality.Medium);
-                MediaEncodingProfile profile_mp4 = MediaEncodingProfile.CreateMp4(VideoEncodingQuality.Pal);
+                MediaEncodingProfile profile = MediaEncodingProfile.CreateMp3(AudioEncodingQuality.Medium);
+                if(OutFile.ContentType.EndsWith("wav", StringComparison.CurrentCultureIgnoreCase))
+                    profile = MediaEncodingProfile.CreateWav(AudioEncodingQuality.Medium);
+                else if (OutFile.ContentType.EndsWith("aac", StringComparison.CurrentCultureIgnoreCase))
+                    profile = MediaEncodingProfile.CreateM4a(AudioEncodingQuality.Medium);
+                else if (OutFile.ContentType.EndsWith("m4a", StringComparison.CurrentCultureIgnoreCase))
+                    profile = MediaEncodingProfile.CreateM4a(AudioEncodingQuality.Medium);
+                else if (OutFile.FileType.EndsWith("alac", StringComparison.CurrentCultureIgnoreCase))
+                    profile = MediaEncodingProfile.CreateAlac(AudioEncodingQuality.Medium);
+                else if (OutFile.ContentType.EndsWith("flac", StringComparison.CurrentCultureIgnoreCase))
+                    profile = MediaEncodingProfile.CreateFlac(AudioEncodingQuality.Medium);
+                else if (OutFile.ContentType.EndsWith("mp4", StringComparison.CurrentCultureIgnoreCase))
+                    profile = MediaEncodingProfile.CreateMp4(VideoEncodingQuality.Pal);
 
                 using (IRandomAccessStream fso = await OutFile.OpenAsync(FileAccessMode.ReadWrite))
                 {
                     //var trans_result = await trans.PrepareFileTranscodeAsync(InFile, OutFile, profile_mp3);
-                    var trans_result = await trans.PrepareStreamTranscodeAsync(stream, fso, profile_mp3);
+                    var trans_result = await trans.PrepareStreamTranscodeAsync(stream, fso, profile);
                     if (trans_result.CanTranscode)
                     {
                         if (canceltsrc != null)
@@ -589,23 +623,16 @@ namespace SpeechIt.Views
             }
         }
 
-        private byte[] ReadStream(Stream streamin)
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
-            byte[] buffer = new byte[16 * 1024];
-            using (MemoryStream ms = new MemoryStream())
+            if (media != null) media.Stop();
+            if (synth != null) synth = null;
+            if (canceltsrc != null)
             {
-                int read;
-                while ((read = streamin.Read(buffer, 0, buffer.Length)) > 0)
-                {
-                    ms.Write(buffer, 0, read);
-                }
-                return ms.ToArray();
+                canceltsrc.Cancel();
+                edHearState.Text = AppResources.GetString("Canceled");
             }
         }
 
-        private byte[] ReadStream(SpeechSynthesisStream streamin)
-        {
-            return (ReadStream(streamin.AsStream()));
-        }
     }
 }

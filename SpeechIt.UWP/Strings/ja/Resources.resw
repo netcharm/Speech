@@ -102,4 +102,16 @@
   <data name="ProcessFinished" xml:space="preserve">
     <value>完成</value>
   </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>キャンセル済み</value>
+  </data>
+  <data name="BtnCancel.Label" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="BtnOK.Label" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="BtnSaveAs.Label" xml:space="preserve">
+    <value>新規保管...</value>
+  </data>
 </root>

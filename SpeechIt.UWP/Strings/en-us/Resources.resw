@@ -207,4 +207,16 @@
   <data name="ProcessingState" xml:space="preserve">
     <value>Processing：</value>
   </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Canceled</value>
+  </data>
+  <data name="BtnCancel.Label" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="BtnOK.Label" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="BtnSaveAs.Label" xml:space="preserve">
+    <value>Save As...</value>
+  </data>
 </root>
