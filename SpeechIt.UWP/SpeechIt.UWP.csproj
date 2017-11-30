@@ -116,25 +116,10 @@
     <PRIResource Include="Strings\en-us\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Activation\ActivationHandler.cs" />
     <Compile Include="Helpers\AppResource.cs" />
     <Compile Include="Helpers\AudioCapturePermissions.cs" />
-    <Compile Include="Helpers\EnumToBooleanConverter.cs" />
-    <Compile Include="Helpers\Json.cs" />
-    <Compile Include="Helpers\SettingsStorageExtensions.cs" />
-    <Compile Include="Services\ActivationService.cs" />
-    <Compile Include="Activation\DefaultLaunchActivationHandler.cs" />
-    <Compile Include="Services\NavigationService.cs" />
-    <Compile Include="Services\ThemeSelectorService.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SettingsPage.xaml.cs">
-      <DependentUpon>SettingsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ShellNavigationItem.cs" />
-    <Compile Include="Views\ShellPage.xaml.cs">
-      <DependentUpon>ShellPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -172,14 +157,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\SettingsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\ShellPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -187,11 +164,9 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\ResourceExtensions.cs" />
-    <Compile Include="Helpers\Singleton.cs" />
-  </ItemGroup>
-  <ItemGroup>
+    <Folder Include="Activation\" />
     <Folder Include="Models\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\SmallTile.scale-100.png" />
