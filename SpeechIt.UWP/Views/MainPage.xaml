@@ -46,7 +46,8 @@
                         Padding="4,0,4,0"
                         VerticalAlignment="Center"
                         SmallChange="5"
-                        Value="100" />
+                        Value="100"
+                        ValueChanged="sliderVolume_ValueChanged"/>
                     <TextBlock
                         x:Name="txtSpeed"
                         x:Uid="txtSpeed"
@@ -69,7 +70,8 @@
                         Minimum="0.5"
                         SmallChange="0.5"
                         StepFrequency="0.5"
-                        Value="1" />
+                        Value="1"
+                        ValueChanged="sliderSpeed_ValueChanged"/>
                     <TextBlock
                         x:Name="txtPitch"
                         x:Uid="txtPitch"
@@ -92,13 +94,22 @@
                         Minimum="0"
                         SmallChange="0.1"
                         StepFrequency="0.1"
-                        Value="1" />
-                    <AppBarSeparator />
+                        Value="1"
+                        ValueChanged="sliderPitch_ValueChanged"/>
+                    <AppBarSeparator
+                        Grid.Column="4" 
+                        Grid.RowSpan="2"
+                        BorderThickness="2"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Stretch" />
                     <AppBarButton
-                        Grid.Column="4"
-                        Grid.ColumnSpan="2"
-                        Icon="Play"
-                        Label="Play" />
+                        Grid.Column="4" 
+                        Grid.RowSpan="2"
+                        Icon="SaveLocal"
+                        Label="Save"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Stretch"
+                        Click="BtnSaveTo_Click"/>
                 </Grid>
             </AppBar.Content>
         </AppBar>
@@ -214,7 +225,7 @@
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
             SelectionChanged="cbLanguageSelection_SelectionChanged" />
-        <Button
+        <ToggleButton
             x:Name="btnSpeak"
             x:Uid="btnSpeak"
             Grid.Row="1"
@@ -229,7 +240,7 @@
             Click="BtnSpeak_Click"
             Content="Balabala"
             RenderTransformOrigin="-0.368,0.771"
-            Style="{StaticResource ButtonRevealStyle}" />
+            Style="{StaticResource ToggleButtonRevealStyle}" />
         <ToggleButton
             x:Name="btnListen"
             x:Uid="btnListen"
@@ -253,6 +264,9 @@
             Height="24"
             Margin="2,0"
             HorizontalAlignment="Left"
-            VerticalAlignment="Center" />
+            VerticalAlignment="Center"
+            MediaOpened="media_MediaOpened"
+            MediaEnded="media_MediaEnded"
+            MediaFailed="media_MediaFailed"/>
     </Grid>
 </Page>

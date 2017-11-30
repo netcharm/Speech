@@ -114,6 +114,18 @@
           <source>Unable to compile grammar.</source>
           <target state="new">無法編譯語法。</target>
         </trans-unit>
+        <trans-unit id="CanNotTrans" translate="yes" xml:space="preserve">
+          <source>Can't convert text to select audio format.</source>
+          <target state="new">Can't convert text to select audio format.</target>
+        </trans-unit>
+        <trans-unit id="ProcessingState" translate="yes" xml:space="preserve">
+          <source>Processing：</source>
+          <target state="new">Processing：</target>
+        </trans-unit>
+        <trans-unit id="ProcessFinished" translate="yes" xml:space="preserve">
+          <source>Finished</source>
+          <target state="new">Finished</target>
+        </trans-unit>
       </group>
     </body>
   </file>

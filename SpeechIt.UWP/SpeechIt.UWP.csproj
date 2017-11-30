@@ -215,7 +215,9 @@
   <ItemGroup>
     <None Include=".editorconfig" />
     <None Include="SpeechIt_TemporaryKey.pfx" />
-    <PRIResource Include="Strings\zh-Hans\Resources.resw" />
+    <PRIResource Include="Strings\zh-Hans\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
     <PRIResource Include="Strings\zh-Hant\Resources.resw" />
     <PRIResource Include="Strings\ja\Resources.resw" />
   </ItemGroup>

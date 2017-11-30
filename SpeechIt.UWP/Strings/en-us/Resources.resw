@@ -198,4 +198,13 @@
   <data name="UnableCompileGrammar" xml:space="preserve">
     <value>Unable to compile grammar.</value>
   </data>
+  <data name="CanNotTrans" xml:space="preserve">
+    <value>Can't convert text to select audio format.</value>
+  </data>
+  <data name="ProcessFinished" xml:space="preserve">
+    <value>Finished</value>
+  </data>
+  <data name="ProcessingState" xml:space="preserve">
+    <value>Processing：</value>
+  </data>
 </root>
