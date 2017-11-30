@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="zh-Hans" original="SPEECHIT.UWP/STRINGS/EN-US/RESOURCES.RESW" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.6810.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="SPEECHIT.UWP/STRINGS/EN-US/RESOURCES.RESW">
+        <trans-unit id="AppName" translate="yes" xml:space="preserve">
+          <source>Speech &amp; Text</source>
+          <target state="translated">听说</target>
+        </trans-unit>
+        <trans-unit id="btnSpeak.Content" translate="yes" xml:space="preserve">
+          <source>Speak</source>
+          <target state="translated">发言</target>
+        </trans-unit>
+        <trans-unit id="txtPitch.Text" translate="yes" xml:space="preserve">
+          <source>Pitch</source>
+          <target state="translated">语调</target>
+        </trans-unit>
+        <trans-unit id="txtSpeed.Text" translate="yes" xml:space="preserve">
+          <source>Speed</source>
+          <target state="translated">语速</target>
+        </trans-unit>
+        <trans-unit id="txtVoice.Text" translate="yes" xml:space="preserve">
+          <source>Voice</source>
+          <target state="translated">音源</target>
+        </trans-unit>
+        <trans-unit id="txtVolume.Text" translate="yes" xml:space="preserve">
+          <source>Volume</source>
+          <target state="translated">音量</target>
+        </trans-unit>
+        <trans-unit id="unknown" translate="yes" xml:space="preserve">
+          <source>unknown</source>
+          <target state="translated">未知</target>
+        </trans-unit>
+        <trans-unit id="btnListen.Content" translate="yes" xml:space="preserve">
+          <source>Listen</source>
+          <target state="translated">聆听</target>
+        </trans-unit>
+        <trans-unit id="Exception" translate="yes" xml:space="preserve">
+          <source>Exception</source>
+          <target state="translated">异常</target>
+        </trans-unit>
+        <trans-unit id="Listen" translate="yes" xml:space="preserve">
+          <source>Listen</source>
+          <target state="translated">聆听</target>
+        </trans-unit>
+        <trans-unit id="Capturing" translate="yes" xml:space="preserve">
+          <source>Capturing</source>
+          <target state="translated">捕获中</target>
+        </trans-unit>
+        <trans-unit id="Idle" translate="yes" xml:space="preserve">
+          <source>Idle</source>
+          <target state="translated">空闲</target>
+        </trans-unit>
+        <trans-unit id="SoundEnded" translate="yes" xml:space="preserve">
+          <source>SoundEnded</source>
+          <target state="translated">声音结束</target>
+        </trans-unit>
+        <trans-unit id="SpeechDetected" translate="yes" xml:space="preserve">
+          <source>SpeechDetected</source>
+          <target state="translated">检测到语音</target>
+        </trans-unit>
+        <trans-unit id="UserCanceled" translate="yes" xml:space="preserve">
+          <source>UserCanceled</source>
+          <target state="translated">用户取消</target>
+        </trans-unit>
+        <trans-unit id="edHearState.Text" translate="yes" xml:space="preserve">
+          <source>State</source>
+          <target state="translated">状态</target>
+        </trans-unit>
+        <trans-unit id="TimeoutExceeded" translate="yes" xml:space="preserve">
+          <source>TimeoutExceeded</source>
+          <target state="translated">超时退出</target>
+        </trans-unit>
+        <trans-unit id="Confidence" translate="yes" xml:space="preserve">
+          <source>Confidence</source>
+          <target state="translated">可信度</target>
+        </trans-unit>
+        <trans-unit id="Heard" translate="yes" xml:space="preserve">
+          <source>Heard</source>
+          <target state="translated">听到的</target>
+        </trans-unit>
+        <trans-unit id="Tag" translate="yes" xml:space="preserve">
+          <source>Tag</source>
+          <target state="translated">标签</target>
+        </trans-unit>
+        <trans-unit id="Ready" translate="yes" xml:space="preserve">
+          <source>Ready</source>
+          <target state="translated">就绪</target>
+        </trans-unit>
+        <trans-unit id="Language" translate="yes" xml:space="preserve">
+          <source>Language</source>
+          <target state="translated">目标语言</target>
+        </trans-unit>
+        <trans-unit id="txtLang.Text" translate="yes" xml:space="preserve">
+          <source>Language</source>
+          <target state="translated">目标语言</target>
+        </trans-unit>
+        <trans-unit id="RecognitionCompleted" translate="yes" xml:space="preserve">
+          <source>Recognition Completed:</source>
+          <target state="translated">已完成识别:</target>
+        </trans-unit>
+        <trans-unit id="VoiceCatchFailed" translate="yes" xml:space="preserve">
+          <source>Sorry, can't catch that</source>
+          <target state="translated">对不起, 未能识别语音。</target>
+        </trans-unit>
+        <trans-unit id="SpeechLanguageNotInstalled" translate="yes" xml:space="preserve">
+          <source>Speech Language pack for selected language not installed.</source>
+          <target state="translated">未安装所选语言的语音包。</target>
+        </trans-unit>
+        <trans-unit id="UnableCompileGrammar" translate="yes" xml:space="preserve">
+          <source>Unable to compile grammar.</source>
+          <target state="translated">无法编译语法。</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>

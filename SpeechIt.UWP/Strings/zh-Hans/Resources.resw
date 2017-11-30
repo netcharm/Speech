@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppName" xml:space="preserve">
+    <value>听说</value>
+  </data>
+  <data name="btnSpeak.Content" xml:space="preserve">
+    <value>发言</value>
+  </data>
+  <data name="txtPitch.Text" xml:space="preserve">
+    <value>语调</value>
+  </data>
+  <data name="txtSpeed.Text" xml:space="preserve">
+    <value>语速</value>
+  </data>
+  <data name="txtVoice.Text" xml:space="preserve">
+    <value>音源</value>
+  </data>
+  <data name="txtVolume.Text" xml:space="preserve">
+    <value>音量</value>
+  </data>
+  <data name="unknown" xml:space="preserve">
+    <value>未知</value>
+  </data>
+  <data name="btnListen.Content" xml:space="preserve">
+    <value>聆听</value>
+  </data>
+  <data name="Exception" xml:space="preserve">
+    <value>异常</value>
+  </data>
+  <data name="Listen" xml:space="preserve">
+    <value>聆听</value>
+  </data>
+  <data name="Capturing" xml:space="preserve">
+    <value>捕获中</value>
+  </data>
+  <data name="Idle" xml:space="preserve">
+    <value>空闲</value>
+  </data>
+  <data name="SoundEnded" xml:space="preserve">
+    <value>声音结束</value>
+  </data>
+  <data name="SpeechDetected" xml:space="preserve">
+    <value>检测到语音</value>
+  </data>
+  <data name="UserCanceled" xml:space="preserve">
+    <value>用户取消</value>
+  </data>
+  <data name="edHearState.Text" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="TimeoutExceeded" xml:space="preserve">
+    <value>超时退出</value>
+  </data>
+  <data name="Confidence" xml:space="preserve">
+    <value>可信度</value>
+  </data>
+  <data name="Heard" xml:space="preserve">
+    <value>听到的</value>
+  </data>
+  <data name="Tag" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>就绪</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>目标语言</value>
+  </data>
+  <data name="txtLang.Text" xml:space="preserve">
+    <value>目标语言</value>
+  </data>
+  <data name="RecognitionCompleted" xml:space="preserve">
+    <value>已完成识别:</value>
+  </data>
+  <data name="VoiceCatchFailed" xml:space="preserve">
+    <value>对不起, 未能识别语音。</value>
+  </data>
+  <data name="SpeechLanguageNotInstalled" xml:space="preserve">
+    <value>未安装所选语言的语音包。</value>
+  </data>
+  <data name="UnableCompileGrammar" xml:space="preserve">
+    <value>无法编译语法。</value>
+  </data>
+</root>
