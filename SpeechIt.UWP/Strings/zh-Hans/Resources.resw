@@ -93,4 +93,13 @@
   <data name="UnableCompileGrammar" xml:space="preserve">
     <value>无法编译语法。</value>
   </data>
+  <data name="CanNotTrans" xml:space="preserve">
+    <value>不支持选择的音频格式.</value>
+  </data>
+  <data name="ProcessingState" xml:space="preserve">
+    <value>处理进度：</value>
+  </data>
+  <data name="ProcessFinished" xml:space="preserve">
+    <value>完成</value>
+  </data>
 </root>

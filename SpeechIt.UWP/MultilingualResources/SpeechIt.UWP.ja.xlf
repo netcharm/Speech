@@ -88,43 +88,43 @@
         </trans-unit>
         <trans-unit id="Ready" translate="yes" xml:space="preserve">
           <source>Ready</source>
-          <target state="new">Ready</target>
+          <target state="translated">Ready</target>
         </trans-unit>
         <trans-unit id="Language" translate="yes" xml:space="preserve">
           <source>Language</source>
-          <target state="new">Language</target>
+          <target state="translated">Language</target>
         </trans-unit>
         <trans-unit id="txtLang.Text" translate="yes" xml:space="preserve">
           <source>Language</source>
-          <target state="new">Language</target>
+          <target state="translated">Language</target>
         </trans-unit>
         <trans-unit id="RecognitionCompleted" translate="yes" xml:space="preserve">
           <source>Recognition Completed:</source>
-          <target state="new">認識完了:</target>
+          <target state="translated">認識完了:</target>
         </trans-unit>
         <trans-unit id="VoiceCatchFailed" translate="yes" xml:space="preserve">
           <source>Sorry, can't catch that</source>
-          <target state="new">すみません、音声認識できませんでした。</target>
+          <target state="translated">すみません、音声認識できませんでした。</target>
         </trans-unit>
         <trans-unit id="SpeechLanguageNotInstalled" translate="yes" xml:space="preserve">
           <source>Speech Language pack for selected language not installed.</source>
-          <target state="new">選択した言語の音声パックがインストールされていません。</target>
+          <target state="translated">選択した言語の音声パックがインストールされていません。</target>
         </trans-unit>
         <trans-unit id="UnableCompileGrammar" translate="yes" xml:space="preserve">
           <source>Unable to compile grammar.</source>
-          <target state="new">構文をコンパイルできません。</target>
+          <target state="translated">構文をコンパイルできません。</target>
         </trans-unit>
         <trans-unit id="CanNotTrans" translate="yes" xml:space="preserve">
           <source>Can't convert text to select audio format.</source>
-          <target state="new">Can't convert text to select audio format.</target>
+          <target state="translated">選択のオーディオフォーマットを支持しない.</target>
         </trans-unit>
         <trans-unit id="ProcessingState" translate="yes" xml:space="preserve">
           <source>Processing：</source>
-          <target state="new">Processing：</target>
+          <target state="translated">処理進度：</target>
         </trans-unit>
         <trans-unit id="ProcessFinished" translate="yes" xml:space="preserve">
           <source>Finished</source>
-          <target state="new">Finished</target>
+          <target state="translated">完成</target>
         </trans-unit>
       </group>
     </body>

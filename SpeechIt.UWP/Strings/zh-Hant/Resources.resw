@@ -72,4 +72,34 @@
   <data name="Tag" xml:space="preserve">
     <value>標籤</value>
   </data>
+  <data name="Ready" xml:space="preserve">
+    <value>就緒</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>目標語言</value>
+  </data>
+  <data name="txtLang.Text" xml:space="preserve">
+    <value>目標語言</value>
+  </data>
+  <data name="RecognitionCompleted" xml:space="preserve">
+    <value>已完成識別:</value>
+  </data>
+  <data name="VoiceCatchFailed" xml:space="preserve">
+    <value>對不起, 未能識別語音。</value>
+  </data>
+  <data name="SpeechLanguageNotInstalled" xml:space="preserve">
+    <value>未安裝所選語言的語音包。</value>
+  </data>
+  <data name="UnableCompileGrammar" xml:space="preserve">
+    <value>無法編譯語法。</value>
+  </data>
+  <data name="CanNotTrans" xml:space="preserve">
+    <value>不支持選擇的音頻格式。</value>
+  </data>
+  <data name="ProcessingState" xml:space="preserve">
+    <value>處理進度：</value>
+  </data>
+  <data name="ProcessFinished" xml:space="preserve">
+    <value>完成</value>
+  </data>
 </root>

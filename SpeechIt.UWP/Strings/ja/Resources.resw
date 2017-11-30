@@ -72,4 +72,34 @@
   <data name="Tag" xml:space="preserve">
     <value>ラベル</value>
   </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="txtLang.Text" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="RecognitionCompleted" xml:space="preserve">
+    <value>認識完了:</value>
+  </data>
+  <data name="VoiceCatchFailed" xml:space="preserve">
+    <value>すみません、音声認識できませんでした。</value>
+  </data>
+  <data name="SpeechLanguageNotInstalled" xml:space="preserve">
+    <value>選択した言語の音声パックがインストールされていません。</value>
+  </data>
+  <data name="UnableCompileGrammar" xml:space="preserve">
+    <value>構文をコンパイルできません。</value>
+  </data>
+  <data name="CanNotTrans" xml:space="preserve">
+    <value>選択のオーディオフォーマットを支持しない.</value>
+  </data>
+  <data name="ProcessingState" xml:space="preserve">
+    <value>処理進度：</value>
+  </data>
+  <data name="ProcessFinished" xml:space="preserve">
+    <value>完成</value>
+  </data>
 </root>

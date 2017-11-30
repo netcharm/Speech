@@ -88,43 +88,43 @@
         </trans-unit>
         <trans-unit id="Ready" translate="yes" xml:space="preserve">
           <source>Ready</source>
-          <target state="new">就緒</target>
+          <target state="translated">就緒</target>
         </trans-unit>
         <trans-unit id="Language" translate="yes" xml:space="preserve">
           <source>Language</source>
-          <target state="new">目標語言</target>
+          <target state="translated">目標語言</target>
         </trans-unit>
         <trans-unit id="txtLang.Text" translate="yes" xml:space="preserve">
           <source>Language</source>
-          <target state="new">目標語言</target>
+          <target state="translated">目標語言</target>
         </trans-unit>
         <trans-unit id="RecognitionCompleted" translate="yes" xml:space="preserve">
           <source>Recognition Completed:</source>
-          <target state="new">已完成識別:</target>
+          <target state="translated">已完成識別:</target>
         </trans-unit>
         <trans-unit id="VoiceCatchFailed" translate="yes" xml:space="preserve">
           <source>Sorry, can't catch that</source>
-          <target state="new">對不起, 未能識別語音。</target>
+          <target state="translated">對不起, 未能識別語音。</target>
         </trans-unit>
         <trans-unit id="SpeechLanguageNotInstalled" translate="yes" xml:space="preserve">
           <source>Speech Language pack for selected language not installed.</source>
-          <target state="new">未安裝所選語言的語音包。</target>
+          <target state="translated">未安裝所選語言的語音包。</target>
         </trans-unit>
         <trans-unit id="UnableCompileGrammar" translate="yes" xml:space="preserve">
           <source>Unable to compile grammar.</source>
-          <target state="new">無法編譯語法。</target>
+          <target state="translated">無法編譯語法。</target>
         </trans-unit>
         <trans-unit id="CanNotTrans" translate="yes" xml:space="preserve">
           <source>Can't convert text to select audio format.</source>
-          <target state="new">Can't convert text to select audio format.</target>
+          <target state="translated">不支持選擇的音頻格式。</target>
         </trans-unit>
         <trans-unit id="ProcessingState" translate="yes" xml:space="preserve">
           <source>Processing：</source>
-          <target state="new">Processing：</target>
+          <target state="translated">處理進度：</target>
         </trans-unit>
         <trans-unit id="ProcessFinished" translate="yes" xml:space="preserve">
           <source>Finished</source>
-          <target state="new">Finished</target>
+          <target state="translated">完成</target>
         </trans-unit>
       </group>
     </body>
