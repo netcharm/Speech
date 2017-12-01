@@ -581,6 +581,11 @@ namespace SpeechIt.Views
                 var TargetFolder = await fp.PickSingleFolderAsync();
                 if (TargetFolder != null)
                 {
+                    StorageApplicationPermissions.MostRecentlyUsedList.Add(TargetFolder, TargetFolder.Name);
+                    if (StorageApplicationPermissions.FutureAccessList.Entries.Count >= 1000)
+                        StorageApplicationPermissions.FutureAccessList.Remove(StorageApplicationPermissions.FutureAccessList.Entries.Last().Token);
+                    StorageApplicationPermissions.FutureAccessList.Add(TargetFolder, TargetFolder.Name);
+
                     var ffn = await InputBox(AppResources.GetString("InputFileName"));
                     if (string.IsNullOrEmpty(ffn)) return;
 
@@ -646,14 +651,6 @@ namespace SpeechIt.Views
                 //var options = new SpeechSynthesizerOptions();
 
                 SpeechSynthesisStream stream = await synth.SynthesizeTextToStreamAsync(text);
-
-                //var mruToken = StorageApplicationPermissions.MostRecentlyUsedList.Add(OutFile, OutFile.Name);
-                //StorageApplicationPermissions.MostRecentlyUsedList.AddOrReplace(OutFile.FolderRelativeId)
-                //StorageFolder targetFolder = await OutFile.GetParentAsync();
-                //StorageFolder targetFolder = await StorageFolder.GetFolderFromPathAsync(Path.GetDirectoryName(OutFile.Path));
-                //StorageFolder targetFolder = await StorageApplicationPermissions.MostRecentlyUsedList.GetFolderAsync(mruToken);
-                //StorageFile newfile = await targetFolder.CreateFileAsync("test.m3u");
-                //await FileIO.WriteTextAsync(newfile, OutFile.Path);
 
                 trans = new MediaTranscoder()
                 {

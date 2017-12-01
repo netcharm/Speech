@@ -128,7 +128,8 @@
                         TextWrapping="NoWrap" />
                     <CheckBox
                         x:Name="ChkAutoSplit"
-                        x:Uid="ChkAutoSplit"                        
+                        x:Uid="ChkAutoSplit"
+                        Visibility="Collapsed"
                         Content="Auto Split"
                         Grid.Column="4" 
                         Grid.RowSpan="2"
@@ -137,7 +138,7 @@
                         VerticalAlignment="Center"/>
                     <AppBarButton
                         x:Name="BtnSaveAs"
-                        x:Uid="BtnSaveAs"                        
+                        x:Uid="BtnSaveAs"
                         Grid.Column="4" 
                         Grid.RowSpan="2"
                         Icon="SaveLocal"
