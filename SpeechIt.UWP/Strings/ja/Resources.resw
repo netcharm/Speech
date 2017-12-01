@@ -129,4 +129,10 @@
   <data name="InputFileName" xml:space="preserve">
     <value>入力ファイル名</value>
   </data>
+  <data name="ChkAutoSplit.Content" xml:space="preserve">
+    <value>長いテキストを自動的に分割する</value>
+  </data>
+  <data name="txtSplit.Text" xml:space="preserve">
+    <value>段落の長さを分割する</value>
+  </data>
 </root>

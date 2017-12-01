@@ -129,4 +129,10 @@
   <data name="InputFileName" xml:space="preserve">
     <value>输入文件名</value>
   </data>
+  <data name="ChkAutoSplit.Content" xml:space="preserve">
+    <value>自动拆分长文本</value>
+  </data>
+  <data name="txtSplit.Text" xml:space="preserve">
+    <value>拆分段落长度</value>
+  </data>
 </root>

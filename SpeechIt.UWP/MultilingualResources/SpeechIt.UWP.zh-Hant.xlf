@@ -162,6 +162,14 @@
           <source>Input File Name</source>
           <target state="translated">輸入文件名</target>
         </trans-unit>
+        <trans-unit id="ChkAutoSplit.Content" translate="yes" xml:space="preserve">
+          <source>Auto Split Long Text</source>
+          <target state="translated">自動拆分長文本</target>
+        </trans-unit>
+        <trans-unit id="txtSplit.Text" translate="yes" xml:space="preserve">
+          <source>Split Word Amount</source>
+          <target state="translated">拆分段落長度</target>
+        </trans-unit>
       </group>
     </body>
   </file>

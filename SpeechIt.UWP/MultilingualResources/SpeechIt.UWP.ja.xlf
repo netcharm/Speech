@@ -162,6 +162,14 @@
           <source>Input File Name</source>
           <target state="translated">入力ファイル名</target>
         </trans-unit>
+        <trans-unit id="ChkAutoSplit.Content" translate="yes" xml:space="preserve">
+          <source>Auto Split Long Text</source>
+          <target state="translated">長いテキストを自動的に分割する</target>
+        </trans-unit>
+        <trans-unit id="txtSplit.Text" translate="yes" xml:space="preserve">
+          <source>Split Word Amount</source>
+          <target state="translated">段落の長さを分割する</target>
+        </trans-unit>
       </group>
     </body>
   </file>

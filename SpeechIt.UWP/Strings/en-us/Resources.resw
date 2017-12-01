@@ -234,4 +234,10 @@
   <data name="InputFileName" xml:space="preserve">
     <value>Input File Name</value>
   </data>
+  <data name="ChkAutoSplit.Content" xml:space="preserve">
+    <value>Auto Split Long Text</value>
+  </data>
+  <data name="txtSplit.Text" xml:space="preserve">
+    <value>Split Word Amount</value>
+  </data>
 </root>
