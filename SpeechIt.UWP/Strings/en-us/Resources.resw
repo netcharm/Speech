@@ -219,4 +219,19 @@
   <data name="BtnSaveAs.Label" xml:space="preserve">
     <value>Save As...</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="InputError" xml:space="preserve">
+    <value>Input Error</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="InputFileName" xml:space="preserve">
+    <value>Input File Name</value>
+  </data>
 </root>

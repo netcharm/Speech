@@ -36,7 +36,7 @@
                         Margin="4,4,4,4"
                         Padding="4,0,4,0"
                         VerticalAlignment="Bottom"
-                        Text="Volume:"
+                        Text="Volume"
                         TextWrapping="Wrap" />
                     <Slider
                         x:Name="sliderVolume"
@@ -56,7 +56,7 @@
                         Margin="4,4,4,4"
                         Padding="4,0,4,0"
                         VerticalAlignment="Bottom"
-                        Text="Speed:"
+                        Text="Speed"
                         TextWrapping="Wrap" />
                     <Slider
                         x:Name="sliderSpeed"
@@ -80,7 +80,7 @@
                         Margin="4,4,4,4"
                         Padding="4,0,4,0"
                         VerticalAlignment="Bottom"
-                        Text="Pitch:"
+                        Text="Pitch"
                         TextWrapping="Wrap" />
                     <Slider
                         x:Name="sliderPitch"
@@ -100,8 +100,41 @@
                         Grid.Column="4" 
                         Grid.RowSpan="2"
                         BorderThickness="2"
+                        Height="48"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Stretch" />
+                    <TextBlock
+                        x:Name="txtSplit"
+                        x:Uid="txtSplit"
+                        Grid.Row="0"
+                        Grid.Column="4"
+                        Margin="32,4,4,4"
+                        Padding="4,0,4,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom"
+                        Text="Split"
+                        TextWrapping="Wrap" />
+                    <TextBox
+                        x:Name="edSplit"
+                        x:Uid="edSplit"
+                        Grid.Row="1"
+                        Grid.Column="4"
+                        Margin="32,4,4,4"
+                        Padding="4,0,4,0"
+                        Width="80"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="0"
+                        TextWrapping="NoWrap" />
+                    <CheckBox
+                        x:Name="ChkAutoSplit"
+                        x:Uid="ChkAutoSplit"                        
+                        Content="Auto Split"
+                        Grid.Column="4" 
+                        Grid.RowSpan="2"
+                        Margin="160,8,8,8"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"/>
                     <AppBarButton
                         x:Name="BtnSaveAs"
                         x:Uid="BtnSaveAs"                        

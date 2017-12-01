@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Resources.Core;
@@ -16,9 +17,11 @@ using Windows.Media.SpeechRecognition;
 using Windows.Media.SpeechSynthesis;
 using Windows.Media.Transcoding;
 using Windows.Storage;
+using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation.Peers;
@@ -542,7 +545,24 @@ namespace SpeechIt.Views
             btnSpeak.IsChecked = false;
         }
 
-        private async void BtnSaveAs_Click(object sender, RoutedEventArgs e)
+        private async Task<string> InputBox(string caption)
+        {
+            TextBox edInput = new TextBox();
+            edInput.AcceptsReturn = false;
+            edInput.Height = 32;
+            ContentDialog dialog = new ContentDialog();
+            dialog.Content = edInput;
+            dialog.Title = AppResources.GetString("InputFileName");
+            dialog.IsSecondaryButtonEnabled = true;
+            dialog.PrimaryButtonText = AppResources.GetString("OK");
+            dialog.SecondaryButtonText = AppResources.GetString("Cancel");
+            if (await dialog.ShowAsync() == ContentDialogResult.Primary)
+                return (edInput.Text);
+            else
+                return(string.Empty);
+        }
+
+        private async Task Text2Audio(string text, int split=0)
         {
             // Generate the audio stream from plain text.
             if (edContent.Text.Length <= 0) return;
@@ -551,51 +571,112 @@ namespace SpeechIt.Views
             else if (edContent.SelectionStart >= edContent.Text.Length) contents = edContent.Text;
             else contents = edContent.Text.Substring(edContent.SelectionStart);
 
-            if (synth == null) synth = new SpeechSynthesizer();
-            var voice = SpeechSynthesizer.AllVoices.Where(o => o.DisplayName == (string)cbVoice.SelectedItem);
-            synth.Voice = voice.First();
-            synth.Options.AudioPitch = sliderPitch.Value;
-            synth.Options.AudioVolume = sliderVolume.Value / 100.0;
-            synth.Options.SpeakingRate = sliderSpeed.Value;
-            //var options = new SpeechSynthesizerOptions();
-
-            trans = new MediaTranscoder()
+            if (split > 0)
             {
-                HardwareAccelerationEnabled = true,
-                AlwaysReencode = true,
-                //VideoProcessingAlgorithm = MediaVideoProcessingAlgorithm.MrfCrf444;
-            };
+                string[] splitChar = new string[] { ".", "。", "?", "？", "!", "！" };
 
-            FileSavePicker fsp = new FileSavePicker();
-            fsp.DefaultFileExtension = ".mp3";
-            fsp.FileTypeChoices.Add("MP3 file", new List<string>() { ".mp3" });
-            fsp.FileTypeChoices.Add("AAC/M4A file", new List<string>() { ".aac", ".m4a" });
-            fsp.FileTypeChoices.Add("FLAC file", new List<string>() { ".flac" });
-            fsp.FileTypeChoices.Add("ALAC file", new List<string>() { ".alac" });
-            fsp.FileTypeChoices.Add("WAV file", new List<string>() { ".wav" });
-            fsp.FileTypeChoices.Add("MP4 file", new List<string>() { ".mp4" });
-            fsp.SuggestedFileName = "untitled";
+                FolderPicker fp = new FolderPicker();
+                //fp.SuggestedStartLocation = PickerLocationId.Desktop;
+                fp.FileTypeFilter.Add("*");
+                var TargetFolder = await fp.PickSingleFolderAsync();
+                if (TargetFolder != null)
+                {
+                    var ffn = await InputBox(AppResources.GetString("InputFileName"));
+                    if (string.IsNullOrEmpty(ffn)) return;
 
-            OutFile = await fsp.PickSaveFileAsync();
-            if (OutFile != null)
+                    var fn = Path.GetFileNameWithoutExtension(ffn);
+                    var ext = Path.GetExtension(ffn);
+                    if (string.IsNullOrEmpty(ext)) ext = ".mp3";
+
+                    List<string> paras = new List<string>();
+                    string[] lines = text.Split(splitChar, StringSplitOptions.RemoveEmptyEntries);
+                    StringBuilder sb = new StringBuilder();
+                    foreach (string t in lines)
+                    {
+                        sb.AppendLine(t);
+                        if(sb.Length>=split)
+                        {
+                            paras.Add(sb.ToString());
+                            sb.Clear();
+                        }
+                    }
+
+                    int count = 0;
+                    foreach (var line in paras)
+                    {
+                        var suffix = $"{count}";
+                        if (paras.Count > 10000) suffix = $"{count:d05}";
+                        else if (paras.Count >= 1000) suffix = $"{count:d04}";
+                        else if (paras.Count >= 100) suffix = $"{count:d03}";
+                        else if (paras.Count >= 10) suffix = $"{count:d02}";
+
+                        StorageFile fo = await TargetFolder.CreateFileAsync($"{fn}_{suffix}{ext}", CreationCollisionOption.ReplaceExisting);
+                        await Text2Audio(line, fo);
+                        count++;
+                    }
+                }
+            }
+            else
             {
-                SpeechSynthesisStream stream = await synth.SynthesizeTextToStreamAsync(contents);
+                FileSavePicker fsp = new FileSavePicker();
+                fsp.DefaultFileExtension = ".mp3";
+                fsp.FileTypeChoices.Add("MP3 file", new List<string>() { ".mp3" });
+                fsp.FileTypeChoices.Add("AAC/M4A file", new List<string>() { ".aac", ".m4a" });
+                fsp.FileTypeChoices.Add("FLAC file", new List<string>() { ".flac" });
+                fsp.FileTypeChoices.Add("ALAC file", new List<string>() { ".alac" });
+                fsp.FileTypeChoices.Add("WAV file", new List<string>() { ".wav" });
+                fsp.FileTypeChoices.Add("MP4 file", new List<string>() { ".mp4" });
+                fsp.SuggestedFileName = "untitled";
+
+                OutFile = await fsp.PickSaveFileAsync();
+                await Text2Audio(contents, OutFile);
+            }
+        }
+
+        private async Task Text2Audio(string text, StorageFile audio)
+        {
+            if (audio != null && !string.IsNullOrEmpty(text))
+            {
+                if (synth == null) synth = new SpeechSynthesizer();
+                var voice = SpeechSynthesizer.AllVoices.Where(o => o.DisplayName == (string)cbVoice.SelectedItem);
+                synth.Voice = voice.First();
+                synth.Options.AudioPitch = sliderPitch.Value;
+                synth.Options.AudioVolume = sliderVolume.Value / 100.0;
+                synth.Options.SpeakingRate = sliderSpeed.Value;
+                //var options = new SpeechSynthesizerOptions();
+
+                SpeechSynthesisStream stream = await synth.SynthesizeTextToStreamAsync(text);
+
+                //var mruToken = StorageApplicationPermissions.MostRecentlyUsedList.Add(OutFile, OutFile.Name);
+                //StorageApplicationPermissions.MostRecentlyUsedList.AddOrReplace(OutFile.FolderRelativeId)
+                //StorageFolder targetFolder = await OutFile.GetParentAsync();
+                //StorageFolder targetFolder = await StorageFolder.GetFolderFromPathAsync(Path.GetDirectoryName(OutFile.Path));
+                //StorageFolder targetFolder = await StorageApplicationPermissions.MostRecentlyUsedList.GetFolderAsync(mruToken);
+                //StorageFile newfile = await targetFolder.CreateFileAsync("test.m3u");
+                //await FileIO.WriteTextAsync(newfile, OutFile.Path);
+
+                trans = new MediaTranscoder()
+                {
+                    HardwareAccelerationEnabled = true,
+                    AlwaysReencode = true,
+                    //VideoProcessingAlgorithm = MediaVideoProcessingAlgorithm.MrfCrf444;
+                };
 
                 MediaEncodingProfile profile = MediaEncodingProfile.CreateMp3(AudioEncodingQuality.Medium);
-                if(OutFile.ContentType.EndsWith("wav", StringComparison.CurrentCultureIgnoreCase))
+                if (audio.ContentType.EndsWith("wav", StringComparison.CurrentCultureIgnoreCase))
                     profile = MediaEncodingProfile.CreateWav(AudioEncodingQuality.Medium);
-                else if (OutFile.ContentType.EndsWith("aac", StringComparison.CurrentCultureIgnoreCase))
+                else if (audio.ContentType.EndsWith("aac", StringComparison.CurrentCultureIgnoreCase))
                     profile = MediaEncodingProfile.CreateM4a(AudioEncodingQuality.Medium);
-                else if (OutFile.ContentType.EndsWith("m4a", StringComparison.CurrentCultureIgnoreCase))
+                else if (audio.ContentType.EndsWith("m4a", StringComparison.CurrentCultureIgnoreCase))
                     profile = MediaEncodingProfile.CreateM4a(AudioEncodingQuality.Medium);
-                else if (OutFile.FileType.EndsWith("alac", StringComparison.CurrentCultureIgnoreCase))
+                else if (audio.FileType.EndsWith("alac", StringComparison.CurrentCultureIgnoreCase))
                     profile = MediaEncodingProfile.CreateAlac(AudioEncodingQuality.Medium);
-                else if (OutFile.ContentType.EndsWith("flac", StringComparison.CurrentCultureIgnoreCase))
+                else if (audio.ContentType.EndsWith("flac", StringComparison.CurrentCultureIgnoreCase))
                     profile = MediaEncodingProfile.CreateFlac(AudioEncodingQuality.Medium);
-                else if (OutFile.ContentType.EndsWith("mp4", StringComparison.CurrentCultureIgnoreCase))
+                else if (audio.ContentType.EndsWith("mp4", StringComparison.CurrentCultureIgnoreCase))
                     profile = MediaEncodingProfile.CreateMp4(VideoEncodingQuality.Pal);
 
-                using (IRandomAccessStream fso = await OutFile.OpenAsync(FileAccessMode.ReadWrite))
+                using (IRandomAccessStream fso = await audio.OpenAsync(FileAccessMode.ReadWrite))
                 {
                     //var trans_result = await trans.PrepareFileTranscodeAsync(InFile, OutFile, profile_mp3);
                     var trans_result = await trans.PrepareStreamTranscodeAsync(stream, fso, profile);
@@ -620,6 +701,31 @@ namespace SpeechIt.Views
                         edHearState.Text = AppResources.GetString("CanNotTrans");
                     }
                 }
+            }
+        }
+
+        private async void BtnSaveAs_Click(object sender, RoutedEventArgs e)
+        {
+            // Generate the audio stream from plain text.
+            if (edContent.Text.Length <= 0) return;
+            string contents = string.Empty;
+            if (edContent.SelectionLength > 0) contents = edContent.SelectedText;
+            else if (edContent.SelectionStart >= edContent.Text.Length) contents = edContent.Text;
+            else contents = edContent.Text.Substring(edContent.SelectionStart);
+
+            //bool split = (bool)ChkAutoSplit.IsChecked;
+            try
+            {
+                int split = Convert.ToInt32(edSplit.Text.Trim());
+                await Text2Audio(contents, split);
+            }
+            catch (Exception ex)
+            {
+                MessageDialog msg = new MessageDialog($"{AppResources.GetString("InputError")}: {ex.ToString()}", AppResources.GetString("Error"));
+                msg.Commands.Add(new UICommand(AppResources.GetString("OK"), cmd => { }, ContentDialogResult.Primary));
+                msg.DefaultCommandIndex = 0;
+                msg.CancelCommandIndex = 0;
+                await msg.ShowAsync();
             }
         }
 

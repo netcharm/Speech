@@ -142,6 +142,26 @@
           <source>Save As...</source>
           <target state="translated">另存爲...</target>
         </trans-unit>
+        <trans-unit id="Cancel" translate="yes" xml:space="preserve">
+          <source>Cancel</source>
+          <target state="translated">取消</target>
+        </trans-unit>
+        <trans-unit id="Error" translate="yes" xml:space="preserve">
+          <source>Error</source>
+          <target state="translated">錯誤</target>
+        </trans-unit>
+        <trans-unit id="InputError" translate="yes" xml:space="preserve">
+          <source>Input Error</source>
+          <target state="translated">輸入錯誤</target>
+        </trans-unit>
+        <trans-unit id="OK" translate="yes" xml:space="preserve">
+          <source>OK</source>
+          <target state="translated">確認</target>
+        </trans-unit>
+        <trans-unit id="InputFileName" translate="yes" xml:space="preserve">
+          <source>Input File Name</source>
+          <target state="translated">輸入文件名</target>
+        </trans-unit>
       </group>
     </body>
   </file>

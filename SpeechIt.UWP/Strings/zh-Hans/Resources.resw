@@ -114,4 +114,19 @@
   <data name="BtnSaveAs.Label" xml:space="preserve">
     <value>另存为...</value>
   </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>错误</value>
+  </data>
+  <data name="InputError" xml:space="preserve">
+    <value>输入错误</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="InputFileName" xml:space="preserve">
+    <value>输入文件名</value>
+  </data>
 </root>
