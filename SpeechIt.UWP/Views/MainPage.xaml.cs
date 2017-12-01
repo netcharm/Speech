@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Resources.Core;
@@ -744,6 +745,20 @@ namespace SpeechIt.Views
                 msg.DefaultCommandIndex = 0;
                 msg.CancelCommandIndex = 0;
                 await msg.ShowAsync();
+            }
+        }
+
+        private void edSplit_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (edSplit.Text.Length <= 0) edSplit.Text = "0";
+
+            var textbox = (TextBox)sender;
+            //if (!Regex.IsMatch(textbox.Text, "^\\d*\\.?\\d*$") && textbox.Text != "")
+            if (!Regex.IsMatch(textbox.Text, "^\\d+$"))
+            {
+                int pos = textbox.SelectionStart - 1;
+                textbox.Text = textbox.Text.Remove(pos, 1);
+                textbox.SelectionStart = pos;
             }
         }
 

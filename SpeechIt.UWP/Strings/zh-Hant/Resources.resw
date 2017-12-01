@@ -18,16 +18,16 @@
   <data name="btnSpeak.Content" xml:space="preserve">
     <value>發言</value>
   </data>
-  <data name="txtPitch.Text" xml:space="preserve">
+  <data name="sliderPitch.Header" xml:space="preserve">
     <value>語調</value>
   </data>
-  <data name="txtSpeed.Text" xml:space="preserve">
+  <data name="sliderSpeed.Header" xml:space="preserve">
     <value>語速</value>
   </data>
-  <data name="txtVoice.Text" xml:space="preserve">
+  <data name="cbVoice.Header" xml:space="preserve">
     <value>音源</value>
   </data>
-  <data name="txtVolume.Text" xml:space="preserve">
+  <data name="sliderVolume.Header" xml:space="preserve">
     <value>音量</value>
   </data>
   <data name="unknown" xml:space="preserve">
@@ -78,7 +78,7 @@
   <data name="Language" xml:space="preserve">
     <value>目標語言</value>
   </data>
-  <data name="txtLang.Text" xml:space="preserve">
+  <data name="cbLanguageSelection.Header" xml:space="preserve">
     <value>目標語言</value>
   </data>
   <data name="RecognitionCompleted" xml:space="preserve">
@@ -132,7 +132,7 @@
   <data name="ChkAutoSplit.Content" xml:space="preserve">
     <value>自動拆分長文本</value>
   </data>
-  <data name="txtSplit.Text" xml:space="preserve">
-    <value>拆分段落長度</value>
+  <data name="edSplit.Header" xml:space="preserve">
+    <value>拆分段長</value>
   </data>
 </root>

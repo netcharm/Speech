@@ -14,19 +14,19 @@
           <source>Speak</source>
           <target state="translated">发言</target>
         </trans-unit>
-        <trans-unit id="txtPitch.Text" translate="yes" xml:space="preserve">
+        <trans-unit id="sliderPitch.Header" translate="yes" xml:space="preserve">
           <source>Pitch</source>
           <target state="translated">语调</target>
         </trans-unit>
-        <trans-unit id="txtSpeed.Text" translate="yes" xml:space="preserve">
+        <trans-unit id="sliderSpeed.Header" translate="yes" xml:space="preserve">
           <source>Speed</source>
           <target state="translated">语速</target>
         </trans-unit>
-        <trans-unit id="txtVoice.Text" translate="yes" xml:space="preserve">
+        <trans-unit id="cbVoice.Header" translate="yes" xml:space="preserve">
           <source>Voice</source>
           <target state="translated">音源</target>
         </trans-unit>
-        <trans-unit id="txtVolume.Text" translate="yes" xml:space="preserve">
+        <trans-unit id="sliderVolume.Header" translate="yes" xml:space="preserve">
           <source>Volume</source>
           <target state="translated">音量</target>
         </trans-unit>
@@ -94,7 +94,7 @@
           <source>Language</source>
           <target state="translated">目标语言</target>
         </trans-unit>
-        <trans-unit id="txtLang.Text" translate="yes" xml:space="preserve">
+        <trans-unit id="cbLanguageSelection.Header" translate="yes" xml:space="preserve">
           <source>Language</source>
           <target state="translated">目标语言</target>
         </trans-unit>
@@ -166,9 +166,9 @@
           <source>Auto Split Long Text</source>
           <target state="translated">自动拆分长文本</target>
         </trans-unit>
-        <trans-unit id="txtSplit.Text" translate="yes" xml:space="preserve">
+        <trans-unit id="edSplit.Header" translate="yes" xml:space="preserve">
           <source>Split Word Amount</source>
-          <target state="translated">拆分段落长度</target>
+          <target state="translated">拆分段长</target>
         </trans-unit>
       </group>
     </body>

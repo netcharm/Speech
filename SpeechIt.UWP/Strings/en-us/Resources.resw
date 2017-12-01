@@ -129,16 +129,16 @@
   <data name="VoiceCatchFailed" xml:space="preserve">
     <value>Sorry, can't catch that</value>
   </data>
-  <data name="txtPitch.Text" xml:space="preserve">
+  <data name="sliderPitch.Header" xml:space="preserve">
     <value>Pitch</value>
   </data>
-  <data name="txtSpeed.Text" xml:space="preserve">
+  <data name="sliderSpeed.Header" xml:space="preserve">
     <value>Speed</value>
   </data>
-  <data name="txtVoice.Text" xml:space="preserve">
+  <data name="cbVoice.Header" xml:space="preserve">
     <value>Voice</value>
   </data>
-  <data name="txtVolume.Text" xml:space="preserve">
+  <data name="sliderVolume.Header" xml:space="preserve">
     <value>Volume</value>
   </data>
   <data name="unknown" xml:space="preserve">
@@ -189,7 +189,7 @@
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
-  <data name="txtLang.Text" xml:space="preserve">
+  <data name="cbLanguageSelection.Header" xml:space="preserve">
     <value>Language</value>
   </data>
   <data name="SpeechLanguageNotInstalled" xml:space="preserve">
@@ -237,7 +237,7 @@
   <data name="ChkAutoSplit.Content" xml:space="preserve">
     <value>Auto Split Long Text</value>
   </data>
-  <data name="txtSplit.Text" xml:space="preserve">
+  <data name="edSplit.Header" xml:space="preserve">
     <value>Split Word Amount</value>
   </data>
 </root>

@@ -18,16 +18,13 @@
   <data name="btnSpeak.Content" xml:space="preserve">
     <value>話す</value>
   </data>
-  <data name="txtPitch.Text" xml:space="preserve">
+  <data name="sliderPitch.Header" xml:space="preserve">
     <value>トーン:</value>
   </data>
-  <data name="txtSpeed.Text" xml:space="preserve">
+  <data name="sliderSpeed.Header" xml:space="preserve">
     <value>高速:</value>
   </data>
-  <data name="txtVoice.Text" xml:space="preserve">
-    <value>音源:</value>
-  </data>
-  <data name="txtVolume.Text" xml:space="preserve">
+  <data name="sliderVolume.Header" xml:space="preserve">
     <value>ボリューム:</value>
   </data>
   <data name="unknown" xml:space="preserve">
@@ -78,7 +75,7 @@
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
-  <data name="txtLang.Text" xml:space="preserve">
+  <data name="cbLanguageSelection.Header" xml:space="preserve">
     <value>Language</value>
   </data>
   <data name="RecognitionCompleted" xml:space="preserve">
@@ -132,7 +129,7 @@
   <data name="ChkAutoSplit.Content" xml:space="preserve">
     <value>長いテキストを自動的に分割する</value>
   </data>
-  <data name="txtSplit.Text" xml:space="preserve">
-    <value>段落の長さを分割する</value>
+  <data name="edSplit.Header" xml:space="preserve">
+    <value>分割長</value>
   </data>
 </root>
