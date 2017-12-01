@@ -164,9 +164,7 @@
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="200*" />
-                        <ColumnDefinition Width="120" />
-                        <ColumnDefinition Width="120" />
-                        <ColumnDefinition Width="120" />
+                        <ColumnDefinition Width="48" />
                     </Grid.ColumnDefinitions>
                     <TextBlock
                         x:Name="edHearState"
@@ -178,6 +176,18 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         Text="Ready" />
+                    <ProgressRing
+                        x:Name="ProgressRing"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Height="32"
+                        Width="32"
+                        Margin="8,14,8,14"
+                        Visibility="Collapsed"
+                        HorizontalContentAlignment="Right"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        IsActive="{Binding IsBusy}" />
                 </Grid>
             </CommandBar.Content>
             <AppBarButton x:Name="BtnCancel" x:Uid="BtnCancel" Icon="Cancel" Label="Cancel" Click="BtnCancel_Click"  />

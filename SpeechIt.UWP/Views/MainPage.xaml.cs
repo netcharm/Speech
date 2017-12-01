@@ -552,7 +552,7 @@ namespace SpeechIt.Views
             edInput.Height = 32;
             ContentDialog dialog = new ContentDialog();
             dialog.Content = edInput;
-            dialog.Title = AppResources.GetString("InputFileName");
+            dialog.Title = caption;
             dialog.IsSecondaryButtonEnabled = true;
             dialog.PrimaryButtonText = AppResources.GetString("OK");
             dialog.SecondaryButtonText = AppResources.GetString("Cancel");
@@ -560,6 +560,19 @@ namespace SpeechIt.Views
                 return (edInput.Text);
             else
                 return(string.Empty);
+        }
+
+        private async Task ProgressRingBox(string caption)
+        {
+            ProgressRing pr = new ProgressRing();
+            pr.Width = 64;
+            pr.Height = 64;
+            pr.HorizontalAlignment = HorizontalAlignment.Center;
+            pr.VerticalAlignment = VerticalAlignment.Center;
+            ContentDialog dialog = new ContentDialog();
+            dialog.Content = pr;
+            dialog.Title = caption;
+            await dialog.ShowAsync();
         }
 
         private async Task Text2Audio(string text, int split=0)
@@ -587,7 +600,11 @@ namespace SpeechIt.Views
                     StorageApplicationPermissions.FutureAccessList.Add(TargetFolder, TargetFolder.Name);
 
                     var ffn = await InputBox(AppResources.GetString("InputFileName"));
-                    if (string.IsNullOrEmpty(ffn)) return;
+                    if (string.IsNullOrEmpty(ffn))  return;
+
+                    //await ProgressRingBox(AppResources.GetString("Waiting"));
+                    ProgressRing.Visibility = Visibility.Visible;
+                    ProgressRing.IsActive = true;
 
                     var fn = Path.GetFileNameWithoutExtension(ffn);
                     var ext = Path.GetExtension(ffn);
@@ -634,8 +651,12 @@ namespace SpeechIt.Views
                 fsp.SuggestedFileName = "untitled";
 
                 OutFile = await fsp.PickSaveFileAsync();
+                ProgressRing.Visibility = Visibility.Visible;
+                ProgressRing.IsActive = true;
                 await Text2Audio(contents, OutFile);
             }
+            ProgressRing.IsActive = false;
+            ProgressRing.Visibility = Visibility.Collapsed;
         }
 
         private async Task Text2Audio(string text, StorageFile audio)
@@ -687,7 +708,7 @@ namespace SpeechIt.Views
                         canceltsrc = new CancellationTokenSource();
                         var progress = new Progress<double>(ps =>
                         {
-                            edHearState.Text = $"{AppResources.GetString("ProcessingState")}：{ps:N0}%";
+                            edHearState.Text = $"{AppResources.GetString("ProcessingState")} {ps:N0}%";
                             //edHearState.Text = AppResources.GetString("ProcessingState");
                         });
                         await trans_result.TranscodeAsync().AsTask(canceltsrc.Token, progress);
