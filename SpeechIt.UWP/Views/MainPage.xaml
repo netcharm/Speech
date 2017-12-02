@@ -165,8 +165,8 @@
                         IsActive="{Binding IsBusy}" />
                 </Grid>
             </CommandBar.Content>
-            <AppBarButton x:Name="BtnCancel" x:Uid="BtnCancel" Icon="Cancel" Label="Cancel" Click="BtnCancel_Click"  />
-            <AppBarButton x:Name="BtnOK" x:Uid="BtnOK" Icon="Accept" Label="OK" />
+            <AppBarButton x:Name="BtnCancel" x:Uid="BtnCancel" Icon="Cancel" Label="Cancel" Click="BtnCancel_Click" Visibility="Collapsed" />
+            <AppBarButton x:Name="BtnOK" x:Uid="BtnOK" Icon="Accept" Label="OK" Visibility="Collapsed"/>
         </CommandBar>
     </Page.BottomAppBar>
 

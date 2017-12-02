@@ -227,6 +227,7 @@ namespace SpeechIt.Views
                 await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                 {
                     edHearState.Text = $"{AppResources.GetString("RecognitionCompleted")} {AppResources.GetString(args.Status.ToString())}";
+                    BtnCancel.Visibility = Visibility.Collapsed;
                     btnListen.Content = AppResources.GetString("Listen");
                     btnListen.IsChecked = false;
                     cbLanguageSelection.IsEnabled = true;
@@ -325,227 +326,6 @@ namespace SpeechIt.Views
             }
         }
 
-        public MainPage()
-        {
-            this.InitializeComponent();
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void Set<T>(ref T storage, T value, [CallerMemberName]string propertyName = null)
-        {
-            if (Equals(storage, value))
-            {
-                return;
-            }
-
-            storage = value;
-            OnPropertyChanged(propertyName);
-        }
-
-        private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-        private void Page_Loading(FrameworkElement sender, object args)
-        {
-            //ApplicationView.GetForCurrentView().Title = AppResources.AppName;
-            minSize = new Size(ConvertPixelsToDips(sizeMinW), ConvertPixelsToDips(sizeMinH));
-            ApplicationView.GetForCurrentView().SetPreferredMinSize(minSize);
-            ApplicationView.PreferredLaunchViewSize = minSize;
-            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
-        }
-
-        private void Page_Unloaded(object sender, RoutedEventArgs e)
-        {
-            if (isListening)
-            {
-                var ap = new ToggleButtonAutomationPeer(btnListen);
-                var ip = ap.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
-                ip?.Invoke();
-            }
-        }
-
-        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if ((MinWidth > 0 && sizeMinW > e.NewSize.Width) ||
-                (MinHeight > 0 && sizeMinH > e.NewSize.Height))
-            {
-                ApplicationView.GetForCurrentView().TryResizeView(minSize);
-            }
-        }
-
-        private async void Main_LoadedAsync(object sender, RoutedEventArgs e)
-        {
-            cbVoice.Items.Clear();
-            foreach (var voice in SpeechSynthesizer.AllVoices)
-            {
-                cbVoice.Items.Add(voice.DisplayName);
-                if (voice.DisplayName == SpeechSynthesizer.DefaultVoice.DisplayName) cbVoice.SelectedItem = cbVoice.Items.Last();
-            }
-            isListening = false;
-
-            // Prompt the user for permission to access the microphone. This request will only happen
-            // once, it will not re-prompt if the user rejects the permission.
-            bool permissionGained = await AudioCapturePermissions.RequestMicrophonePermission();
-            if (permissionGained)
-            {
-                btnListen.IsEnabled = true;
-
-                // Initialize resource map to retrieve localized speech strings.
-                Language speechLanguage = SpeechRecognizer.SystemSpeechLanguage;
-                string langTag = speechLanguage.LanguageTag;
-                speechContext = ResourceContext.GetForCurrentView();
-                speechContext.Languages = new string[] { langTag };
-
-                speechResourceMap = ResourceManager.Current.MainResourceMap.GetSubtree("LocalizationSpeechResources");
-
-                PopulateLanguageDropdown();
-                await InitializeRecognizer(SpeechRecognizer.SystemSpeechLanguage);
-            }
-            else
-            {
-                btnListen.IsEnabled = false;
-            }
-        }
-
-        private async void BtnSpeak_Click(object sender, RoutedEventArgs e)
-        {
-            // Generate the audio stream from plain text.
-            if (edContent.Text.Length <= 0) return;
-            string contents = string.Empty;
-            if (edContent.SelectionLength > 0) contents = edContent.SelectedText;
-            else if (edContent.SelectionStart >= edContent.Text.Length) contents = edContent.Text;
-            else contents = edContent.Text.Substring(edContent.SelectionStart);
-
-            if (synth == null) synth = new SpeechSynthesizer();
-            var voice = SpeechSynthesizer.AllVoices.Where(o => o.DisplayName == (string)cbVoice.SelectedItem);
-            synth.Voice = voice.First();
-            synth.Options.AudioPitch = sliderPitch.Value;
-            synth.Options.AudioVolume = sliderVolume.Value / 100.0;
-            synth.Options.SpeakingRate = sliderSpeed.Value;
-            //var options = new SpeechSynthesizerOptions();
-
-            // Send the stream to the media object.
-            media.Stop();
-            media.AutoPlay = true;
-            SpeechSynthesisStream stream = await synth.SynthesizeTextToStreamAsync(contents);
-            media.SetSource(stream, stream.ContentType);
-            media.Play();
-        }
-
-        private async void BtnListen_Click(object sender, RoutedEventArgs e)
-        {
-            btnListen.IsEnabled = false;
-            if (isListening == false)
-            {
-                // The recognizer can only start listening in a continuous fashion if the recognizer is currently idle.
-                // This prevents an exception from occurring.
-                if (recognizer.State == SpeechRecognizerState.Idle)
-                {
-                    try
-                    {
-                        await recognizer.ContinuousRecognitionSession.StartAsync();
-                        //recognizer.UIOptions.
-                        cbLanguageSelection.IsEnabled = false;
-                        btnListen.Content = $"{AppResources.GetString("Listen")}...";
-                        btnListen.IsChecked = true;
-                        isListening = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        var messageDialog = new Windows.UI.Popups.MessageDialog(ex.Message, AppResources.GetString("Exception"));
-                        await messageDialog.ShowAsync();
-                    }
-                }
-            }
-            else
-            {
-                isListening = false;
-                cbLanguageSelection.IsEnabled = true;
-                if (recognizer.State != SpeechRecognizerState.Idle)
-                {
-                    try
-                    {
-                        // Cancelling recognition prevents any currently recognized speech from
-                        // generating a ResultGenerated event. StopAsync() will allow the final session to 
-                        // complete.
-                        await recognizer.ContinuousRecognitionSession.CancelAsync();
-                        btnListen.Content = AppResources.GetString("Listen");
-                        btnListen.IsChecked = false;
-                    }
-                    catch (Exception ex)
-                    {
-                        var messageDialog = new Windows.UI.Popups.MessageDialog(ex.Message, AppResources.GetString("Exception"));
-                        await messageDialog.ShowAsync();
-                    }
-                }
-            }
-            btnListen.IsEnabled = true;
-
-            //// Initialize resource map to retrieve localized speech strings.
-            //Language speechLanguage = SpeechRecognizer.SystemSpeechLanguage;
-            //string langTag = speechLanguage.LanguageTag;
-            //speechContext = ResourceContext.GetForCurrentView();
-            //speechContext.Languages = new string[] { langTag };
-
-            //speechResourceMap = ResourceManager.Current.MainResourceMap.GetSubtree("LocalizationSpeechResources");
-
-            //PopulateLanguageDropdown();
-            //await InitializeRecognizer(SpeechRecognizer.SystemSpeechLanguage);
-
-            ////using (SpeechRecognizer recognizer = new SpeechRecognizer())
-            //{
-            //    //var session = recognizer.ContinuousRecognitionSession;
-            //    //await session.StopAsync();
-            //    //await session.StartAsync();
-            //    //SpeechRecognitionResult result = await recognizer.RecognizeWithUIAsync();
-
-            //    SpeechRecognitionResult result = await recognizer.RecognizeAsync();
-
-            //    this.edContent.Text += result.Text;
-            //}
-        }
-
-        private async void cbLanguageSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (isPopulatingLanguages) return;
-            Language targetLang = (Language)(cbLanguageSelection.SelectedItem as ComboBoxItem).Tag;
-            await InitializeRecognizer(targetLang);
-            edHearState.Text = AppResources.GetString("Idle");
-        }
-
-        private void sliderVolume_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-        {
-            if (synth == null) return;
-            synth.Options.AudioVolume = e.NewValue;
-        }
-
-        private void sliderSpeed_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-        {
-            if (synth == null) return;
-            synth.Options.SpeakingRate = e.NewValue;
-        }
-
-        private void sliderPitch_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
-        {
-            if (synth == null) return;
-            synth.Options.AudioPitch = e.NewValue;
-        }
-
-        private void media_MediaOpened(object sender, RoutedEventArgs e)
-        {
-            btnSpeak.IsChecked = true;
-        }
-
-        private void media_MediaEnded(object sender, RoutedEventArgs e)
-        {
-            btnSpeak.IsChecked = false;
-        }
-
-        private void media_MediaFailed(object sender, ExceptionRoutedEventArgs e)
-        {
-            btnSpeak.IsChecked = false;
-        }
-
         private async Task<string> InputBox(string caption)
         {
             TextBox edInput = new TextBox();
@@ -560,7 +340,7 @@ namespace SpeechIt.Views
             if (await dialog.ShowAsync() == ContentDialogResult.Primary)
                 return (edInput.Text);
             else
-                return(string.Empty);
+                return (string.Empty);
         }
 
         private async Task ProgressRingBox(string caption)
@@ -576,7 +356,7 @@ namespace SpeechIt.Views
             await dialog.ShowAsync();
         }
 
-        private async Task Text2Audio(string text, int split=0)
+        private async Task Text2Audio(string text, int split = 0)
         {
             // Generate the audio stream from plain text.
             if (edContent.Text.Length <= 0) return;
@@ -601,7 +381,7 @@ namespace SpeechIt.Views
                     StorageApplicationPermissions.FutureAccessList.Add(TargetFolder, TargetFolder.Name);
 
                     var ffn = await InputBox(AppResources.GetString("InputFileName"));
-                    if (string.IsNullOrEmpty(ffn))  return;
+                    if (string.IsNullOrEmpty(ffn)) return;
 
                     //await ProgressRingBox(AppResources.GetString("Waiting"));
                     ProgressRing.Visibility = Visibility.Visible;
@@ -617,7 +397,7 @@ namespace SpeechIt.Views
                     foreach (string t in lines)
                     {
                         sb.AppendLine(t);
-                        if(sb.Length>=split)
+                        if (sb.Length >= split)
                         {
                             paras.Add(sb.ToString());
                             sb.Clear();
@@ -723,29 +503,126 @@ namespace SpeechIt.Views
             }
         }
 
-        private async void BtnSaveAs_Click(object sender, RoutedEventArgs e)
+        private void PerformClick(Button button)
         {
-            // Generate the audio stream from plain text.
-            if (edContent.Text.Length <= 0) return;
-            string contents = string.Empty;
-            if (edContent.SelectionLength > 0) contents = edContent.SelectedText;
-            else if (edContent.SelectionStart >= edContent.Text.Length) contents = edContent.Text;
-            else contents = edContent.Text.Substring(edContent.SelectionStart);
+            var ap = new ButtonAutomationPeer(button);
+            var ip = ap.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
+            ip?.Invoke();
+        }
 
-            //bool split = (bool)ChkAutoSplit.IsChecked;
-            try
+        public MainPage()
+        {
+            this.InitializeComponent();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void Set<T>(ref T storage, T value, [CallerMemberName]string propertyName = null)
+        {
+            if (Equals(storage, value))
             {
-                int split = Convert.ToInt32(edSplit.Text.Trim());
-                await Text2Audio(contents, split);
+                return;
             }
-            catch (Exception ex)
+
+            storage = value;
+            OnPropertyChanged(propertyName);
+        }
+
+        private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+        private void Page_Loading(FrameworkElement sender, object args)
+        {
+            //ApplicationView.GetForCurrentView().Title = AppResources.AppName;
+            minSize = new Size(ConvertPixelsToDips(sizeMinW), ConvertPixelsToDips(sizeMinH));
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(minSize);
+            ApplicationView.PreferredLaunchViewSize = minSize;
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
+        }
+
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            if (isListening)
             {
-                MessageDialog msg = new MessageDialog($"{AppResources.GetString("InputError")}: {ex.ToString()}", AppResources.GetString("Error"));
-                msg.Commands.Add(new UICommand(AppResources.GetString("OK"), cmd => { }, ContentDialogResult.Primary));
-                msg.DefaultCommandIndex = 0;
-                msg.CancelCommandIndex = 0;
-                await msg.ShowAsync();
+                var ap = new ToggleButtonAutomationPeer(btnListen);
+                var ip = ap.GetPattern(PatternInterface.Invoke) as IInvokeProvider;
+                ip?.Invoke();
             }
+        }
+
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if ((MinWidth > 0 && sizeMinW > e.NewSize.Width) ||
+                (MinHeight > 0 && sizeMinH > e.NewSize.Height))
+            {
+                ApplicationView.GetForCurrentView().TryResizeView(minSize);
+            }
+        }
+
+        private async void Main_LoadedAsync(object sender, RoutedEventArgs e)
+        {
+            cbVoice.Items.Clear();
+            foreach (var voice in SpeechSynthesizer.AllVoices)
+            {
+                cbVoice.Items.Add(voice.DisplayName);
+                if (voice.DisplayName == SpeechSynthesizer.DefaultVoice.DisplayName) cbVoice.SelectedItem = cbVoice.Items.Last();
+            }
+            isListening = false;
+
+            // Prompt the user for permission to access the microphone. This request will only happen
+            // once, it will not re-prompt if the user rejects the permission.
+            bool permissionGained = await AudioCapturePermissions.RequestMicrophonePermission();
+            if (permissionGained)
+            {
+                btnListen.IsEnabled = true;
+
+                // Initialize resource map to retrieve localized speech strings.
+                Language speechLanguage = SpeechRecognizer.SystemSpeechLanguage;
+                string langTag = speechLanguage.LanguageTag;
+                speechContext = ResourceContext.GetForCurrentView();
+                speechContext.Languages = new string[] { langTag };
+
+                speechResourceMap = ResourceManager.Current.MainResourceMap.GetSubtree("LocalizationSpeechResources");
+
+                PopulateLanguageDropdown();
+                await InitializeRecognizer(SpeechRecognizer.SystemSpeechLanguage);
+            }
+            else
+            {
+                btnListen.IsEnabled = false;
+            }
+        }
+
+        private void sliderVolume_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            if (synth == null) return;
+            synth.Options.AudioVolume = e.NewValue;
+        }
+
+        private void sliderSpeed_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            if (synth == null) return;
+            synth.Options.SpeakingRate = e.NewValue;
+        }
+
+        private void sliderPitch_ValueChanged(object sender, Windows.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        {
+            if (synth == null) return;
+            synth.Options.AudioPitch = e.NewValue;
+        }
+
+        private void media_MediaOpened(object sender, RoutedEventArgs e)
+        {
+            btnSpeak.IsChecked = true;
+        }
+
+        private void media_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            btnSpeak.IsChecked = false;
+        }
+
+        private void media_MediaFailed(object sender, ExceptionRoutedEventArgs e)
+        {
+            btnSpeak.IsChecked = false;
         }
 
         private void edSplit_TextChanged(object sender, TextChangedEventArgs e)
@@ -770,6 +647,128 @@ namespace SpeechIt.Views
             {
                 canceltsrc.Cancel();
                 edHearState.Text = AppResources.GetString("Canceled");
+            }
+            btnSpeak.IsChecked = false;
+            btnListen.IsChecked = false;
+            BtnCancel.Visibility = Visibility.Collapsed;
+        }
+
+        private async void cbLanguageSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (isPopulatingLanguages) return;
+            Language targetLang = (Language)(cbLanguageSelection.SelectedItem as ComboBoxItem).Tag;
+            await InitializeRecognizer(targetLang);
+            edHearState.Text = AppResources.GetString("Idle");
+        }
+
+        private async void BtnSpeak_Click(object sender, RoutedEventArgs e)
+        {
+            PerformClick(BtnCancel);
+            BtnCancel.Visibility = Visibility.Visible;
+            btnSpeak.IsChecked = true;
+            btnListen.IsChecked = false;
+
+            // Generate the audio stream from plain text.
+            if (edContent.Text.Length <= 0) return;
+            string contents = string.Empty;
+            if (edContent.SelectionLength > 0) contents = edContent.SelectedText;
+            else if (edContent.SelectionStart >= edContent.Text.Length) contents = edContent.Text;
+            else contents = edContent.Text.Substring(edContent.SelectionStart);
+
+            if (synth == null) synth = new SpeechSynthesizer();
+            var voice = SpeechSynthesizer.AllVoices.Where(o => o.DisplayName == (string)cbVoice.SelectedItem);
+            synth.Voice = voice.First();
+            synth.Options.AudioPitch = sliderPitch.Value;
+            synth.Options.AudioVolume = sliderVolume.Value / 100.0;
+            synth.Options.SpeakingRate = sliderSpeed.Value;
+            //var options = new SpeechSynthesizerOptions();
+
+            // Send the stream to the media object.
+            media.Stop();
+            media.AutoPlay = true;
+            SpeechSynthesisStream stream = await synth.SynthesizeTextToStreamAsync(contents);
+            media.SetSource(stream, stream.ContentType);
+            media.Play();
+        }
+
+        private async void BtnListen_Click(object sender, RoutedEventArgs e)
+        {
+            btnListen.IsEnabled = false;
+            if (isListening == false)
+            {
+                if (media != null) media.Stop();
+                if (synth != null) synth = null;
+
+                // The recognizer can only start listening in a continuous fashion if the recognizer is currently idle.
+                // This prevents an exception from occurring.
+                if (recognizer.State == SpeechRecognizerState.Idle)
+                {
+                    try
+                    {
+                        await recognizer.ContinuousRecognitionSession.StartAsync();
+                        //recognizer.UIOptions.
+                        cbLanguageSelection.IsEnabled = false;
+                        btnListen.Content = $"{AppResources.GetString("Listen")}...";
+                        btnListen.IsChecked = true;
+                        btnSpeak.IsChecked = false;
+                        BtnCancel.Visibility = Visibility.Visible;
+                        isListening = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        var messageDialog = new MessageDialog(ex.Message, AppResources.GetString("Exception"));
+                        await messageDialog.ShowAsync();
+                    }
+                }
+            }
+            else
+            {
+                isListening = false;
+                cbLanguageSelection.IsEnabled = true;
+                if (recognizer.State != SpeechRecognizerState.Idle)
+                {
+                    try
+                    {
+                        // Cancelling recognition prevents any currently recognized speech from
+                        // generating a ResultGenerated event. StopAsync() will allow the final session to 
+                        // complete.
+                        await recognizer.ContinuousRecognitionSession.CancelAsync();
+                        btnListen.Content = AppResources.GetString("Listen");
+                        btnListen.IsChecked = false;
+                        BtnCancel.Visibility = Visibility.Collapsed;
+                    }
+                    catch (Exception ex)
+                    {
+                        var messageDialog = new MessageDialog(ex.Message, AppResources.GetString("Exception"));
+                        await messageDialog.ShowAsync();
+                    }
+                }
+            }
+            btnListen.IsEnabled = true;
+        }
+
+        private async void BtnSaveAs_Click(object sender, RoutedEventArgs e)
+        {
+            // Generate the audio stream from plain text.
+            if (edContent.Text.Length <= 0) return;
+            string contents = string.Empty;
+            if (edContent.SelectionLength > 0) contents = edContent.SelectedText;
+            else if (edContent.SelectionStart >= edContent.Text.Length) contents = edContent.Text;
+            else contents = edContent.Text.Substring(edContent.SelectionStart);
+
+            //bool split = (bool)ChkAutoSplit.IsChecked;
+            try
+            {
+                int split = Convert.ToInt32(edSplit.Text.Trim());
+                await Text2Audio(contents, split);
+            }
+            catch (Exception ex)
+            {
+                MessageDialog msg = new MessageDialog($"{AppResources.GetString("InputError")}: {ex.ToString()}", AppResources.GetString("Error"));
+                msg.Commands.Add(new UICommand(AppResources.GetString("OK"), cmd => { }, ContentDialogResult.Primary));
+                msg.DefaultCommandIndex = 0;
+                msg.CancelCommandIndex = 0;
+                await msg.ShowAsync();
             }
         }
 
