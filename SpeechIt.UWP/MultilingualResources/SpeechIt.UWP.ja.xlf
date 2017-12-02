@@ -88,7 +88,7 @@
         </trans-unit>
         <trans-unit id="Language" translate="yes" xml:space="preserve">
           <source>Language</source>
-          <target state="translated">Language</target>
+          <target state="translated">対象言語</target>
         </trans-unit>
         <trans-unit id="cbLanguageSelection.Header" translate="yes" xml:space="preserve">
           <source>Language</source>
@@ -168,7 +168,7 @@
         </trans-unit>
         <trans-unit id="cbVoice.Header" translate="yes" xml:space="preserve">
           <source>Voice</source>
-          <target state="new">Voice</target>
+          <target state="translated">音源</target>
         </trans-unit>
       </group>
     </body>

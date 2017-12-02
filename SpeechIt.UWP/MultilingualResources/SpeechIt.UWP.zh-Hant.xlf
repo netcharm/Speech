@@ -16,19 +16,19 @@
         </trans-unit>
         <trans-unit id="sliderPitch.Header" translate="yes" xml:space="preserve">
           <source>Pitch</source>
-          <target state="needs-review-translation">語調</target>
+          <target state="translated">語調</target>
         </trans-unit>
         <trans-unit id="sliderSpeed.Header" translate="yes" xml:space="preserve">
           <source>Speed</source>
-          <target state="needs-review-translation">語速</target>
+          <target state="translated">語速</target>
         </trans-unit>
         <trans-unit id="cbVoice.Header" translate="yes" xml:space="preserve">
           <source>Voice</source>
-          <target state="needs-review-translation">音源</target>
+          <target state="translated">音源</target>
         </trans-unit>
         <trans-unit id="sliderVolume.Header" translate="yes" xml:space="preserve">
           <source>Volume</source>
-          <target state="needs-review-translation">音量</target>
+          <target state="translated">音量</target>
         </trans-unit>
         <trans-unit id="unknown" translate="yes" xml:space="preserve">
           <source>unknown</source>

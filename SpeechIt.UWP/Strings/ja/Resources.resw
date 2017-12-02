@@ -73,7 +73,7 @@
     <value>Ready</value>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>Language</value>
+    <value>対象言語</value>
   </data>
   <data name="cbLanguageSelection.Header" xml:space="preserve">
     <value>Language</value>
@@ -131,5 +131,8 @@
   </data>
   <data name="edSplit.Header" xml:space="preserve">
     <value>分割長</value>
+  </data>
+  <data name="cbVoice.Header" xml:space="preserve">
+    <value>音源</value>
   </data>
 </root>

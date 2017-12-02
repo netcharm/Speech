@@ -220,6 +220,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
+    <None Include="WindowsStore\SpeechIt.Language.csv" />
+    <None Include="WindowsStore\SpeechIt.Language.xlsx" />
     <None Include="SpeechIt.UWP_StoreKey.pfx" />
     <None Include="SpeechIt_TemporaryKey.pfx" />
     <PRIResource Include="Strings\zh-Hans\Resources.resw">
