@@ -189,6 +189,7 @@
         </Grid.ColumnDefinitions>
         <TextBox
             x:Name="edContent"
+            AcceptsReturn="True"
             Grid.ColumnSpan="5"
             MinWidth="16"
             MinHeight="16"
