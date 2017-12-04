@@ -36,9 +36,9 @@ namespace SpeechIt.Views
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页。
     /// </summary>
-    public sealed partial class MainPage : Page, INotifyPropertyChanged
+    public sealed partial class MainPage : Page //, INotifyPropertyChanged
     {
-        private static int sizeMinW = 960;
+        private static int sizeMinW = 640;
         private static int sizeMinH = 400;
         private Size minSize = new Size(sizeMinW, sizeMinH);
 
@@ -69,6 +69,21 @@ namespace SpeechIt.Views
         private StorageFile InFile = null, OutFile = null;
         private MediaTranscoder trans = null;
         private CancellationTokenSource canceltsrc = null;
+
+        //public event PropertyChangedEventHandler PropertyChanged;
+
+        //private void Set<T>(ref T storage, T value, [CallerMemberName]string propertyName = null)
+        //{
+        //    if (Equals(storage, value))
+        //    {
+        //        return;
+        //    }
+
+        //    storage = value;
+        //    OnPropertyChanged(propertyName);
+        //}
+
+        //private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         /// <summary>
         /// Look up the supported languages for this speech recognition scenario, 
@@ -515,21 +530,6 @@ namespace SpeechIt.Views
             this.InitializeComponent();
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void Set<T>(ref T storage, T value, [CallerMemberName]string propertyName = null)
-        {
-            if (Equals(storage, value))
-            {
-                return;
-            }
-
-            storage = value;
-            OnPropertyChanged(propertyName);
-        }
-
-        private void OnPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
         private void Page_Loading(FrameworkElement sender, object args)
         {
             //ApplicationView.GetForCurrentView().Title = AppResources.AppName;
@@ -556,6 +556,11 @@ namespace SpeechIt.Views
             {
                 ApplicationView.GetForCurrentView().TryResizeView(minSize);
             }
+            //if ((MinWidth > 0 &&  > e.NewSize.Width) ||
+            //    (MinHeight > 0 && sizeMinH > e.NewSize.Height))
+            //{
+            //    ApplicationView.GetForCurrentView().TryResizeView(e.PreviousSize);
+            //}
         }
 
         private async void Main_LoadedAsync(object sender, RoutedEventArgs e)
@@ -613,16 +618,19 @@ namespace SpeechIt.Views
         private void media_MediaOpened(object sender, RoutedEventArgs e)
         {
             btnSpeak.IsChecked = true;
+            BtnCancel.Visibility = Visibility.Visible;
         }
 
         private void media_MediaEnded(object sender, RoutedEventArgs e)
         {
             btnSpeak.IsChecked = false;
+            BtnCancel.Visibility = Visibility.Collapsed;
         }
 
         private void media_MediaFailed(object sender, ExceptionRoutedEventArgs e)
         {
             btnSpeak.IsChecked = false;
+            BtnCancel.Visibility = Visibility.Collapsed;
         }
 
         private void edSplit_TextChanged(object sender, TextChangedEventArgs e)
@@ -639,6 +647,14 @@ namespace SpeechIt.Views
             }
         }
 
+        private async void cbLanguageSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (isPopulatingLanguages) return;
+            Language targetLang = (Language)(cbLanguageSelection.SelectedItem as ComboBoxItem).Tag;
+            await InitializeRecognizer(targetLang);
+            edHearState.Text = AppResources.GetString("Idle");
+        }
+
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             if (media != null) media.Stop();
@@ -653,20 +669,12 @@ namespace SpeechIt.Views
             BtnCancel.Visibility = Visibility.Collapsed;
         }
 
-        private async void cbLanguageSelection_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (isPopulatingLanguages) return;
-            Language targetLang = (Language)(cbLanguageSelection.SelectedItem as ComboBoxItem).Tag;
-            await InitializeRecognizer(targetLang);
-            edHearState.Text = AppResources.GetString("Idle");
-        }
-
         private async void BtnSpeak_Click(object sender, RoutedEventArgs e)
         {
-            PerformClick(BtnCancel);
-            BtnCancel.Visibility = Visibility.Visible;
-            btnSpeak.IsChecked = true;
-            btnListen.IsChecked = false;
+            //PerformClick(BtnCancel);
+            //BtnCancel.Visibility = Visibility.Visible;
+            //btnSpeak.IsChecked = true;
+            //btnListen.IsChecked = false;
 
             // Generate the audio stream from plain text.
             if (edContent.Text.Length <= 0) return;
