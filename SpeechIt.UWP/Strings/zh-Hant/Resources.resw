@@ -135,4 +135,25 @@
   <data name="edSplit.Header" xml:space="preserve">
     <value>拆分段長</value>
   </data>
+  <data name="SpeechPrivacyContent" xml:space="preserve">
+    <value>需要點擊'打開語音服務和鍵盤輸入建議'這個按鈕開啓語音功能...</value>
+  </data>
+  <data name="SpeechPrivacyPriButton" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="SpeechPrivacyResultContent" xml:space="preserve">
+    <value>設置應用未能啓動.</value>
+  </data>
+  <data name="SpeechPrivacyResultPriButton" xml:space="preserve">
+    <value>禁用聆聽功能</value>
+  </data>
+  <data name="SpeechPrivacyResultTitle" xml:space="preserve">
+    <value>哎呀! 出了點問題...</value>
+  </data>
+  <data name="SpeechPrivacySecButton" xml:space="preserve">
+    <value>確認並顯示相關的設定</value>
+  </data>
+  <data name="SpeechPrivacyTitle" xml:space="preserve">
+    <value>語音隱私策略尚未被接受</value>
+  </data>
 </root>

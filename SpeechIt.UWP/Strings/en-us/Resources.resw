@@ -240,4 +240,25 @@
   <data name="edSplit.Header" xml:space="preserve">
     <value>Split Word Amount</value>
   </data>
+  <data name="SpeechPrivacyContent" xml:space="preserve">
+    <value>You need to turn on a button called 'Get to know me'...</value>
+  </data>
+  <data name="SpeechPrivacyPriButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="SpeechPrivacyResultContent" xml:space="preserve">
+    <value>The Settings App could not be opened.</value>
+  </data>
+  <data name="SpeechPrivacyResultPriButton" xml:space="preserve">
+    <value>Disable It</value>
+  </data>
+  <data name="SpeechPrivacyResultTitle" xml:space="preserve">
+    <value>Oops! Something went wrong...</value>
+  </data>
+  <data name="SpeechPrivacySecButton" xml:space="preserve">
+    <value>OK and show me the setting</value>
+  </data>
+  <data name="SpeechPrivacyTitle" xml:space="preserve">
+    <value>The speech privacy policy was not accepted</value>
+  </data>
 </root>

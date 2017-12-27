@@ -170,6 +170,34 @@
           <source>Split Word Amount</source>
           <target state="translated">拆分段长</target>
         </trans-unit>
+        <trans-unit id="SpeechPrivacyContent" translate="yes" xml:space="preserve">
+          <source>You need to turn on a button called 'Get to know me'...</source>
+          <target state="translated">需要点击'打开语音服务和键盘输入建议'这个按钮开启语音功能...</target>
+        </trans-unit>
+        <trans-unit id="SpeechPrivacyPriButton" translate="yes" xml:space="preserve">
+          <source>Cancel</source>
+          <target state="translated">取消</target>
+        </trans-unit>
+        <trans-unit id="SpeechPrivacyResultContent" translate="yes" xml:space="preserve">
+          <source>The Settings App could not be opened.</source>
+          <target state="translated">设置应用未能启动.</target>
+        </trans-unit>
+        <trans-unit id="SpeechPrivacyResultPriButton" translate="yes" xml:space="preserve">
+          <source>Disable It</source>
+          <target state="translated">禁用聆听功能</target>
+        </trans-unit>
+        <trans-unit id="SpeechPrivacyResultTitle" translate="yes" xml:space="preserve">
+          <source>Oops! Something went wrong...</source>
+          <target state="translated">哎呀! 出了点问题...</target>
+        </trans-unit>
+        <trans-unit id="SpeechPrivacySecButton" translate="yes" xml:space="preserve">
+          <source>OK and show me the setting</source>
+          <target state="translated">确认并显示相关的设定</target>
+        </trans-unit>
+        <trans-unit id="SpeechPrivacyTitle" translate="yes" xml:space="preserve">
+          <source>The speech privacy policy was not accepted</source>
+          <target state="translated">语音隐私策略尚未被接受</target>
+        </trans-unit>
       </group>
     </body>
   </file>

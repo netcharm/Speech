@@ -135,4 +135,25 @@
   <data name="edSplit.Header" xml:space="preserve">
     <value>拆分段长</value>
   </data>
+  <data name="SpeechPrivacyContent" xml:space="preserve">
+    <value>需要点击'打开语音服务和键盘输入建议'这个按钮开启语音功能...</value>
+  </data>
+  <data name="SpeechPrivacyPriButton" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="SpeechPrivacyResultContent" xml:space="preserve">
+    <value>设置应用未能启动.</value>
+  </data>
+  <data name="SpeechPrivacyResultPriButton" xml:space="preserve">
+    <value>禁用聆听功能</value>
+  </data>
+  <data name="SpeechPrivacyResultTitle" xml:space="preserve">
+    <value>哎呀! 出了点问题...</value>
+  </data>
+  <data name="SpeechPrivacySecButton" xml:space="preserve">
+    <value>确认并显示相关的设定</value>
+  </data>
+  <data name="SpeechPrivacyTitle" xml:space="preserve">
+    <value>语音隐私策略尚未被接受</value>
+  </data>
 </root>

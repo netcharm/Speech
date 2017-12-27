@@ -135,4 +135,25 @@
   <data name="cbVoice.Header" xml:space="preserve">
     <value>音源</value>
   </data>
+  <data name="SpeechPrivacyContent" xml:space="preserve">
+    <value>音声機能をオンにするには、[音声サービスとキーボード入力のアドバイスを開く] ボタンをクリックする必要があります。</value>
+  </data>
+  <data name="SpeechPrivacyPriButton" xml:space="preserve">
+    <value>キャンセル</value>
+  </data>
+  <data name="SpeechPrivacyResultContent" xml:space="preserve">
+    <value>設定アプリケーションを起動できませんでした。</value>
+  </data>
+  <data name="SpeechPrivacyResultPriButton" xml:space="preserve">
+    <value>リスニングを無効にする</value>
+  </data>
+  <data name="SpeechPrivacyResultTitle" xml:space="preserve">
+    <value>あ! 何かが間違っています...</value>
+  </data>
+  <data name="SpeechPrivacySecButton" xml:space="preserve">
+    <value>関連する設定の確認と表示</value>
+  </data>
+  <data name="SpeechPrivacyTitle" xml:space="preserve">
+    <value>音声プライバシーポリシーは受け付けておりません</value>
+  </data>
 </root>

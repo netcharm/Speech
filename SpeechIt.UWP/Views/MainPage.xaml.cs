@@ -66,7 +66,7 @@ namespace SpeechIt.Views
         private bool isPopulatingLanguages = false;
         private bool isListening = false;
 
-        private StorageFile InFile = null, OutFile = null;
+        private StorageFile OutFile = null;
         private MediaTranscoder trans = null;
         private CancellationTokenSource canceltsrc = null;
 
@@ -579,6 +579,8 @@ namespace SpeechIt.Views
             if (permissionGained)
             {
                 btnListen.IsEnabled = true;
+                btnListen.Visibility = Visibility.Visible;
+                cbLanguageSelection.Visibility = Visibility.Visible;
 
                 // Initialize resource map to retrieve localized speech strings.
                 Language speechLanguage = SpeechRecognizer.SystemSpeechLanguage;
@@ -594,6 +596,8 @@ namespace SpeechIt.Views
             else
             {
                 btnListen.IsEnabled = false;
+                btnListen.Visibility = Visibility.Collapsed;
+                cbLanguageSelection.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -721,6 +725,43 @@ namespace SpeechIt.Views
                         btnSpeak.IsChecked = false;
                         BtnCancel.Visibility = Visibility.Visible;
                         isListening = true;
+                    }
+                    catch (System.Runtime.InteropServices.COMException ex) when (ex.HResult == unchecked((int)0x80045509))
+                    {
+                        //privacyPolicyHResult
+                        //The speech privacy policy was not accepted prior to attempting a speech recognition.
+                        ContentDialog dlgWarning = new ContentDialog()
+                        {
+                            Title = AppResources.GetString("SpeechPrivacyTitle"),
+                            Content = AppResources.GetString("SpeechPrivacyContent"),
+                            PrimaryButtonText = AppResources.GetString("SpeechPrivacyPriButton"),
+                            SecondaryButtonText = AppResources.GetString("SpeechPrivacySecButton")
+                        };
+                        var result = await dlgWarning.ShowAsync();
+                        if (result == ContentDialogResult.Secondary)
+                        {
+                            const string uriToLaunch = "ms-settings:privacy-speechtyping";
+                            //"http://stackoverflow.com/questions/42391526/exception-the-speech-privacy-policy-" + 
+                            //"was-not-accepted-prior-to-attempting-a-spee/43083877#43083877";
+                            var uri = new Uri(uriToLaunch);
+
+                            var success = await Windows.System.Launcher.LaunchUriAsync(uri);
+
+                            if (!success)
+                            {
+                                await new ContentDialog
+                                {
+                                    Title = AppResources.GetString("SpeechPrivacyResultTitle"),
+                                    Content = AppResources.GetString("SpeechPrivacyResultContent"),
+                                    PrimaryButtonText = AppResources.GetString("SpeechPrivacyResultPriButton")
+                                }.ShowAsync();
+                                btnListen.Visibility = Visibility.Collapsed;
+                            }
+                        }
+                        else if (result == ContentDialogResult.Primary)
+                        {
+                            btnListen.Visibility = Visibility.Collapsed;
+                        }
                     }
                     catch (Exception ex)
                     {

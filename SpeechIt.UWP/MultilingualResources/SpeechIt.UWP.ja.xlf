@@ -170,6 +170,34 @@
           <source>Voice</source>
           <target state="translated">音源</target>
         </trans-unit>
+        <trans-unit id="SpeechPrivacyContent" translate="yes" xml:space="preserve">
+          <source>You need to turn on a button called 'Get to know me'...</source>
+          <target state="translated">音声機能をオンにするには、[音声サービスとキーボード入力のアドバイスを開く] ボタンをクリックする必要があります。</target>
+        </trans-unit>
+        <trans-unit id="SpeechPrivacyPriButton" translate="yes" xml:space="preserve">
+          <source>Cancel</source>
+          <target state="translated">キャンセル</target>
+        </trans-unit>
+        <trans-unit id="SpeechPrivacyResultContent" translate="yes" xml:space="preserve">
+          <source>The Settings App could not be opened.</source>
+          <target state="translated">設定アプリケーションを起動できませんでした。</target>
+        </trans-unit>
+        <trans-unit id="SpeechPrivacyResultPriButton" translate="yes" xml:space="preserve">
+          <source>Disable It</source>
+          <target state="translated">リスニングを無効にする</target>
+        </trans-unit>
+        <trans-unit id="SpeechPrivacyResultTitle" translate="yes" xml:space="preserve">
+          <source>Oops! Something went wrong...</source>
+          <target state="translated">あ! 何かが間違っています...</target>
+        </trans-unit>
+        <trans-unit id="SpeechPrivacySecButton" translate="yes" xml:space="preserve">
+          <source>OK and show me the setting</source>
+          <target state="translated">関連する設定の確認と表示</target>
+        </trans-unit>
+        <trans-unit id="SpeechPrivacyTitle" translate="yes" xml:space="preserve">
+          <source>The speech privacy policy was not accepted</source>
+          <target state="translated">音声プライバシーポリシーは受け付けておりません</target>
+        </trans-unit>
       </group>
     </body>
   </file>
